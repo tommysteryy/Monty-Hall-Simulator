@@ -33,7 +33,8 @@ this can also be a way for me to practice my upper-year level statistics skills 
 
 ## User Stories
 
-- As a user, I want to be able to pick to switch doors or not switch doors 
-- As a user, I want to be able to add doors, goats, and cars to the game
+- As a user, I want to be able to pick to switch doors or not switch doors.
+- As a user, I want to be able to add as many doors, goats, and cars to the game as you'd like
+  to "design your own game" and explore the mathematics behind it.
 - As a user, I want to see the wins and loses change as the simulation plays
 - As a user, I want to see the probability principles that underlie this problem

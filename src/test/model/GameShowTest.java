@@ -154,5 +154,30 @@ class GameShowTest {
 
     }
 
+    @Test
+    public void testRandomizeDontAffectDoors() {
+        gameShow.addDoor(door1C);
+        gameShow.addDoor(door2G);
+        gameShow.addDoor(door4C);
 
+        gameShow.selectDoor(1);
+        gameShow.openDoor(4);
+        gameShow.randomizeDoors();
+
+        assertEquals(3, gameShow.getSize());
+        assertEquals(door2G, gameShow.find(2));
+        assertEquals(door1C, gameShow.currentSelectedDoor());
+        assertTrue(gameShow.find(4).isOpen());
+    }
+
+    @Test
+    public void testClearDoors() {
+        gameShow.addDoor(door1C);
+        gameShow.addDoor(door2G);
+        gameShow.addDoor(door4C);
+
+        gameShow.clearDoors();
+        assertEquals(0, gameShow.getSize());
+        assertNull(gameShow.find(1));
+    }
 }

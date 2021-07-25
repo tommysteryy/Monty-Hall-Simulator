@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -86,8 +87,37 @@ public class GameShow {
         return false;
     }
 
+    // MODIFIES: this
+    // EFFECT: randomizes the order of the doors
+    public void randomizeDoors() {
+        Collections.shuffle(this.doors);
+    }
 
-    /// HELPER FUNCTIONS
+    // EFFECT: returns a readable version of the current state of the GameShow
+    public String presentDoors() {
+        String out = new String();
+
+        for (Door d : this.getDoors()) {
+            out += "\t Door " + d.getId();
+            if (d.isSelected()) {
+                out += " (selected):";
+            } else {
+                out += ":";
+            }
+
+            if (d.isOpen()) {
+                out += " Open";
+                out += ", the prize is " + d.getPrize().reveal();
+            } else {
+                out += " Closed";
+            }
+            out += "\n";
+        }
+        return out;
+    }
+
+
+    /// HELPER FUNCTIONS (+ GETTERS AND SETTERS)
 
     // EFFECT: checks if any door is currently selected
     public boolean atLeastOneSelected() {
@@ -120,7 +150,6 @@ public class GameShow {
         return false;
     }
 
-
     // REQUIRES: door to be in doors (or else will return null)
     // EFFECT: returns the FIRST full door object in this.doors with certain doorID
     public Door find(int doorID) {
@@ -135,6 +164,16 @@ public class GameShow {
     // EFFECT: returns the nunber of items in the doors
     public int getSize() {
         return doors.size();
+    }
+
+    // EFFECT: returns the list with all the doors in it
+    public List<Door> getDoors() {
+        return doors;
+    }
+
+    public void clearDoors() {
+        List<Door> newDoorList = new ArrayList<>();
+        this.doors = newDoorList;
     }
 }
 

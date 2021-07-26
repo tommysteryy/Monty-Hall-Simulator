@@ -6,7 +6,6 @@ import model.GameShow;
 import model.Goat;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -14,13 +13,13 @@ public class RunGameShow {
 
     private Scanner input = new Scanner(System.in);
     private GameShow gameShow = new GameShow();
-    private Car carRed = new Car("red");
-    private Goat goat = new Goat();
+    private final Car carRed = new Car("red");
+    private final Goat goat = new Goat();
     private String name;
 
-    private Door door1C = new Door(1, carRed);
-    private Door door2G = new Door(2, goat);
-    private Door door3G = new Door(3, goat);
+    private final Door door1C = new Door(1, carRed);
+    private final Door door2G = new Door(2, goat);
+    private final Door door3G = new Door(3, goat);
 
 
     public RunGameShow() {
@@ -32,15 +31,15 @@ public class RunGameShow {
                 + "What is your name?");
         name = input.next();
         System.out.println("Hello " + name + ", let me explain how this game will work. \n");
-        String command = "notyet";
+        String command = "not yet";
         while (!command.equals("r")) {
             System.out.println("There are three doors:");
             System.out.println(gameShow.presentDoors());
-            System.out.println("Behind each door is a prize - two have a goat, one of them has a beautiful new red car.\n");
-            System.out.println("Soon, you will pick your door. Then, I will show you the prize of one of the other doors"
-                    + " and then I will offer you a special chance to change your door selection.");
-            System.out.println("Then, once locked in, we will reveal your prize, and you get the prize behind your door."
-                    + " It will make more sense as we go, I promise.");
+            System.out.println("Behind each door is a prize - two have a goat, one of them has a  new red car.\n");
+            System.out.println("Soon, you will pick your door. Then, I will show you what's behind one of the other"
+                    + " doors and then I will offer you a special chance to change your door selection.");
+            System.out.println("Then, once locked in, we will reveal your prize, and you get the prize behind your"
+                    + " door. It will make more sense as we go, I promise.");
             System.out.println("Ready? \n \t - r (Ready!) \n \t - n (Not yet, tell me again!)");
             command = input.next();
             while (!command.equals("n") && !command.equals("r")) {
@@ -104,11 +103,7 @@ public class RunGameShow {
             System.out.println("That was not a valid choice, please pick again:");
             restartCommand = input.next();
         }
-        if (restartCommand.equals("y")) {
-            return true;
-        } else {
-            return false;
-        }
+        return restartCommand.equals("y");
     }
 
     public void selectFirstDoor() {

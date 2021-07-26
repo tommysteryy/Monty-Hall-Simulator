@@ -34,9 +34,7 @@ public class RunGameShow {
     }
 
     public void gameIntro() {
-        gameShow.addDoor(door1C);
-        gameShow.addDoor(door2G);
-        gameShow.addDoor(door3G);
+        setupGameShowAndDoors();
         System.out.println("Welcome to the game show! I am Monty Hall, your host for today. \n"
                 + "What is your name?");
         String name = input.next();
@@ -60,6 +58,93 @@ public class RunGameShow {
         System.out.println("Sweet! Let's go over to the game.");
     }
 
+    public void oneRegularGame() {
+        setupGameShowAndDoors();
+        System.out.println("Here are your three doors: \n");
+        System.out.println(gameShow.presentDoors());
+        selectFirstDoor();
+        int doorChoice = gameShow.currentSelectedDoor().getId();
+        System.out.println(gameShow.presentDoors());
+        System.out.println("Interesting pick... alright. Let me go back there and check it out! \n.\n.\n."
+                + "Okay, let me show you something.");
+        Door doorToReveal = gameShow.nonSelectedGoatDoor();
+        gameShow.openDoor(doorToReveal.getId());
+        System.out.println(gameShow.presentDoors());
+        switchDoors(doorChoice, doorToReveal.getId()); // have to supply to method because it depends on previous things
+        System.out.println(gameShow.presentDoors());
+        System.out.println("Alright! It is locked in.");
+        revealGameShowPrize();
+        boolean wantToPlayAgain = wantToPlayAgain();
+        if (wantToPlayAgain) {
+            oneRegularGame();
+        } else {
+            System.out.println("Thank you, and goodbye!");
+        }
+    }
 
+    public void setupGameShowAndDoors() {
+        gameShow.clearDoors();
+        gameShow.addDoor(door1C);
+        gameShow.addDoor(door2G);
+        gameShow.addDoor(door3G);
+        gameShow.randomizeDoors();
+        gameShow.closeAllDoors();
+        gameShow.unselectAllDoors();
+    }
+
+    public void revealGameShowPrize() {
+        System.out.println("And now.. to reveal your prize! \n");
+        gameShow.currentSelectedDoor().open();
+        System.out.println(gameShow.presentDoors());
+
+        if (gameShow.currentSelectedDoor().prizeIsCar()) {
+            System.out.println("Congratulations! You made the right call. The beautiful car is yours!");
+        } else if (gameShow.currentSelectedDoor().prizeIsGoat()) {
+            System.out.println("Unfortunate.. but hey! You'll come back better.");
+        }
+    }
+
+    public boolean wantToPlayAgain() {
+        System.out.println("Would you like to play again?\n - y (Yes!) \t - n (No, maybe next time)");
+        String restartCommand = input.next();
+        while (!restartCommand.equals("y") && !restartCommand.equals("n")) {
+            System.out.println("That was not a valid choice, please pick again:");
+            restartCommand = input.next();
+        }
+        if (restartCommand.equals("y")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void selectFirstDoor() {
+        System.out.println("Which one do you want to select? Choose using the door number. ");
+        String doorChoiceInput = input.next();
+        while (!doorChoiceInput.equals("1") && !doorChoiceInput.equals("2") && !doorChoiceInput.equals("3")) {
+            System.out.println("That was not a valid door number. Pick again.");
+            doorChoiceInput = input.next();
+        }
+        int doorChoice = Integer.parseInt(doorChoiceInput);
+        gameShow.selectDoor(doorChoice);
+    }
+
+    public void switchDoors(int doorChoice, int doorToReveal) {
+
+        System.out.println("Now, this is unprecedented, but I will offer you an exclusive chance to switch your door"
+                + "to the other door. What does your GUT tell you? \n");
+        System.out.println("\t- s (Switch!) \t- n (No switch!)");
+        String switchDecision = input.next();
+        while (!switchDecision.equals("s") && !switchDecision.equals("n")) {
+            System.out.println("That was not a valid choice, please pick again:");
+            switchDecision = input.next();
+        }
+        if (switchDecision.equals("s")) {
+            Door doorToSwitchTo = gameShow.doorThatIsntInTheList(doorChoice, doorToReveal);
+            gameShow.unselectDoor(doorChoice);
+            gameShow.selectDoor(doorToSwitchTo.getId());
+        }
+    }
 }
+
 

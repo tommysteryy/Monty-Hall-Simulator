@@ -180,4 +180,14 @@ class GameShowTest {
         assertEquals(0, gameShow.getSize());
         assertNull(gameShow.find(1));
     }
+
+    @Test
+    public void testDoorPrizeChecking() {
+        assertTrue(door1C.prizeIsCar());
+        assertFalse(door1C.prizeIsGoat());
+        assertTrue(door2G.prizeIsGoat());
+        assertFalse(door2G.prizeIsCar());
+    }
+
+
 }

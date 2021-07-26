@@ -66,4 +66,16 @@ public class Door {
         return this.selected;
     }
 
+    // EFFECT: return true if the prize is a goat
+    public boolean prizeIsGoat() {
+        boolean b = this.prize instanceof Goat;
+        return b;
+    }
+
+    // EFFECT: return true if the prize is a goat
+    public boolean prizeIsCar() {
+        boolean b = this.prize instanceof Car;
+        return b;
+    }
+
 }

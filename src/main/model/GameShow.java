@@ -116,6 +116,20 @@ public class GameShow {
         return out;
     }
 
+    // REQUIRE: CURRENTLY SELECTED DOOR, ALL CLOSED
+    // MODIFIES: this
+    // EFFECT: reveals a door with the goat behind it that is not currently selected.
+    //         the gameshow after this is called should have:
+    //         original door that was selected, still closed
+    //         a non-selected door, now open, with a goat behind it
+    //         the other door that is not changed in any way.
+    public void hostRevealOneOtherDoor() {
+        if (this.allDoorsClosed() && this.atLeastOneSelected()) {
+            Door doorToOpen = this.nonSelectedGoatDoor();
+            this.openDoor(doorToOpen.getId());
+        }
+    }
+
 
     /// HELPER FUNCTIONS (+ GETTERS AND SETTERS)
 
@@ -171,10 +185,62 @@ public class GameShow {
         return doors;
     }
 
+    // EFFECT: removes all doors from this.doors, good way to reset between methods
     public void clearDoors() {
         List<Door> newDoorList = new ArrayList<>();
         this.doors = newDoorList;
     }
+
+    // EFFECT: returns true if all doors are closed
+    public boolean allDoorsClosed() {
+        for (Door d: doors) {
+            if (d.isOpen()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    // REQUIRES: AT LEAST one non-selected door that has a goat in doors
+    // EFFECT: produces A SINGLE RANDOM DOOR THAT IS A NON-SELECTED, GOAT DOOR
+    public Door nonSelectedGoatDoor() {
+        ArrayList<Door> listOfGoatDoors = new ArrayList<>();
+
+        for (Door d: doors) {
+            if (!d.isSelected() && d.prizeIsGoat()) {
+                listOfGoatDoors.add(d);
+            }
+        }
+        Collections.shuffle(listOfGoatDoors);
+        return listOfGoatDoors.get(0);
+    }
+
+    // REQUIRES: only used for 3-door game
+    // EFFECT: returns the third door in doors that doesn't have an id of the two provided
+    //         returns null if there is not a third door that will work
+    public Door doorThatIsntInTheList(int doorID1, int doorID2) {
+        for (Door d: doors) {
+            if ((d.getId() != doorID1) && (d.getId() != doorID2)) {
+                return d;
+            }
+        }
+        return null;
+    }
+
+    // EFFECT: closes all doors in gameshow
+    public void closeAllDoors() {
+        for (Door d: doors) {
+            d.close();
+        }
+    }
+
+    // EFFECT: unselects all doors
+    public void unselectAllDoors() {
+        for (Door d: doors) {
+            d.unselect();
+        }
+    }
+
 }
 
 

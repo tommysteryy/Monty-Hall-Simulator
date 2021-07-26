@@ -123,12 +123,12 @@ public class GameShow {
     //         original door that was selected, still closed
     //         a non-selected door, now open, with a goat behind it
     //         the other door that is not changed in any way.
-    public void hostRevealOneOtherDoor() {
-        if (this.allDoorsClosed() && this.atLeastOneSelected()) {
-            Door doorToOpen = this.nonSelectedGoatDoor();
-            this.openDoor(doorToOpen.getId());
-        }
-    }
+//    public void hostRevealOneOtherDoor() {
+//        if (this.allDoorsClosed() && this.atLeastOneSelected()) {
+//            Door doorToOpen = this.nonSelectedGoatDoor();
+//            this.openDoor(doorToOpen.getId());
+//        }
+//    }
 
 
     /// HELPER FUNCTIONS (+ GETTERS AND SETTERS)

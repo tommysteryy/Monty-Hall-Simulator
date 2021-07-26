@@ -9,35 +9,24 @@ import java.util.Scanner;
 
 public class RunGameShow {
 
-    private Scanner input;
+    private Scanner input = new Scanner(System.in);
     private GameShow gameShow = new GameShow();
     private Car carRed = new Car("red");
     private Goat goat = new Goat();
+    private String name;
 
     private Door door1C = new Door(1, carRed);
     private Door door2G = new Door(2, goat);
     private Door door3G = new Door(3, goat);
 
     public RunGameShow() {
-        boolean keepGoing = true;
-        String command = null;
-        input = new Scanner(System.in);
-
-        System.out.println("Type q to continue in the program:");
-        command = input.next();
-        while (!command.equals("q")) {
-            System.out.println("Try again. Type q to continue in the program:");
-            command = input.next();
-        }
-
-        System.out.println("\nSee you again!");
     }
 
     public void gameIntro() {
         setupGameShowAndDoors();
         System.out.println("Welcome to the game show! I am Monty Hall, your host for today. \n"
                 + "What is your name?");
-        String name = input.next();
+        name = input.next();
         System.out.println("Hello " + name + ", let me explain how this game will work. \n");
         String command = "notyet";
         while (!command.equals("r")) {
@@ -100,7 +89,7 @@ public class RunGameShow {
         if (gameShow.currentSelectedDoor().prizeIsCar()) {
             System.out.println("Congratulations! You made the right call. The beautiful car is yours!");
         } else if (gameShow.currentSelectedDoor().prizeIsGoat()) {
-            System.out.println("Unfortunate.. but hey! You'll come back better.");
+            System.out.println("Unfortunately, you did not get the car... but hey! You'll come back better.");
         }
     }
 
@@ -132,7 +121,7 @@ public class RunGameShow {
     public void switchDoors(int doorChoice, int doorToReveal) {
 
         System.out.println("Now, this is unprecedented, but I will offer you an exclusive chance to switch your door"
-                + "to the other door. What does your GUT tell you? \n");
+                + "to the other door. What does your GUT tell you," + name + "? \n");
         System.out.println("\t- s (Switch!) \t- n (No switch!)");
         String switchDecision = input.next();
         while (!switchDecision.equals("s") && !switchDecision.equals("n")) {

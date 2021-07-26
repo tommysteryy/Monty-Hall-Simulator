@@ -189,5 +189,56 @@ class GameShowTest {
         assertFalse(door2G.prizeIsCar());
     }
 
+    @Test
+    public void testAllClosed() {
+        gameShow.addDoor(door1C);
+        gameShow.addDoor(door2G);
+        gameShow.addDoor(door4C);
+        gameShow.closeAllDoors();
 
+        assertTrue(gameShow.allDoorsClosed());
+    }
+
+    @Test
+    public void testReturnNonSelectedGoatDoor() {
+        gameShow.addDoor(door1C);
+        gameShow.addDoor(door2G);
+        gameShow.unselectAllDoors();
+
+        gameShow.selectDoor(1);
+        assertEquals(door2G, gameShow.nonSelectedGoatDoor());
+
+    }
+
+    @Test
+    public void testNonSelectedDoor() {
+        gameShow.addDoor(door1C);
+        gameShow.addDoor(door2G);
+        gameShow.addDoor(door3G);
+
+        assertEquals(door3G, gameShow.doorThatIsntInTheList(1,2));
+        assertEquals(door1C, gameShow.doorThatIsntInTheList(2,3));
+
+    }
+
+    @Test
+    public void testPresentCode() {
+        gameShow.addDoor(door1C);
+        gameShow.addDoor(door2G);
+        gameShow.addDoor(door3G);
+        gameShow.closeAllDoors();
+
+        String output = "\t Door 1: Closed\n" +
+                "\t Door 2: Closed\n" +
+                "\t Door 3: Closed\n";
+
+        assertEquals(output, gameShow.presentDoors());
+
+        gameShow.selectDoor(1);
+
+        String output2 = "\t Door 1 (selected): Closed\n" +
+                "\t Door 2: Closed\n" +
+                "\t Door 3: Closed\n";
+
+    }
 }

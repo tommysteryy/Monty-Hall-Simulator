@@ -5,6 +5,9 @@ import model.Door;
 import model.GameShow;
 import model.Goat;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class RunGameShow {
@@ -18,6 +21,7 @@ public class RunGameShow {
     private Door door1C = new Door(1, carRed);
     private Door door2G = new Door(2, goat);
     private Door door3G = new Door(3, goat);
+
 
     public RunGameShow() {
     }
@@ -128,12 +132,13 @@ public class RunGameShow {
             System.out.println("That was not a valid choice, please pick again:");
             switchDecision = input.next();
         }
+        List<Door> doorsDontWant = new ArrayList<>();
+        doorsDontWant.add(gameShow.find(doorChoice));
+        doorsDontWant.add(gameShow.find(doorToReveal));
         if (switchDecision.equals("s")) {
-            Door doorToSwitchTo = gameShow.doorThatIsntInTheList(doorChoice, doorToReveal);
+            Door doorToSwitchTo = gameShow.randomDoorThatIsntInTheList(doorsDontWant);
             gameShow.unselectDoor(doorChoice);
             gameShow.selectDoor(doorToSwitchTo.getId());
         }
     }
 }
-
-

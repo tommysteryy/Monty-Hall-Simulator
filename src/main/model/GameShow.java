@@ -1,5 +1,6 @@
 package model;
 
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -116,6 +117,35 @@ public class GameShow {
         return out;
     }
 
+    // REQUIRES: newly set up game (all non-selected), non-emty doors
+    // EFFECT: runs 1 simulation of a game of the monty hall problem WHERE YOU NEVER SWITCH
+    //         returns true if won, return false if didn't
+    public boolean runSimulationOnceDontSwitch() {
+        this.unselectAllDoors();
+        Collections.shuffle(this.doors);
+        Door firstPickDoor = this.doors.get(0);
+        this.selectDoor(firstPickDoor.getId());
+        return this.currentSelectedDoor().getPrize() instanceof Car;
+    }
+
+    public boolean runSimulationOnceSwitch() {
+        this.unselectAllDoors();
+        this.randomizeDoors();
+        Door firstPickDoor = this.doors.get(0);
+        this.selectDoor(firstPickDoor.getId());
+
+        Door revealDoor = this.nonSelectedGoatDoor();
+        List<Door> listOfDoorsDontWant = new ArrayList<>();
+        listOfDoorsDontWant.add(firstPickDoor);
+        listOfDoorsDontWant.add(revealDoor);
+
+        Door doorToSwitchTo = this.randomDoorThatIsntInTheList(listOfDoorsDontWant);
+        this.unselectDoor(firstPickDoor.getId());
+        this.selectDoor(doorToSwitchTo.getId());
+
+        return this.currentSelectedDoor().getPrize() instanceof Car;
+    }
+
     // REQUIRE: CURRENTLY SELECTED DOOR, ALL CLOSED
     // MODIFIES: this
     // EFFECT: reveals a door with the goat behind it that is not currently selected.
@@ -130,6 +160,18 @@ public class GameShow {
 //        }
 //    }
 
+
+    // MODIFIES: this
+    // EFFECT: sets up the gameshow for a regular round of simulations or games.
+    public void setupGameShow(List<Door> doorsToAddToGame) {
+        this.clearDoors();
+        for (Door d: doorsToAddToGame) {
+            this.addDoor(d);
+        }
+        this.randomizeDoors();
+        this.closeAllDoors();
+        this.unselectAllDoors();
+    }
 
     /// HELPER FUNCTIONS (+ GETTERS AND SETTERS)
 
@@ -185,6 +227,15 @@ public class GameShow {
         return doors;
     }
 
+    // EFFECT: returns a list with all the doorIDs
+    public List<Integer> getDoorIDs() {
+        List<Integer> result = new ArrayList<>();
+        for (Door d: doors) {
+            result.add(d.getId());
+        }
+        return result;
+    }
+
     // EFFECT: removes all doors from this.doors, good way to reset between methods
     public void clearDoors() {
         List<Door> newDoorList = new ArrayList<>();
@@ -215,16 +266,18 @@ public class GameShow {
         return listOfGoatDoors.get(0);
     }
 
-    // REQUIRES: only used for 3-door game
+    // REQUIRES: non-empty list
     // EFFECT: returns the third door in doors that doesn't have an id of the two provided
     //         returns null if there is not a third door that will work
-    public Door doorThatIsntInTheList(int doorID1, int doorID2) {
+    public Door randomDoorThatIsntInTheList(List<Door> doorsDontWant) {
+        List<Door> availableDoorsToChoose = new ArrayList<>();
         for (Door d: doors) {
-            if ((d.getId() != doorID1) && (d.getId() != doorID2)) {
-                return d;
+            if (!doorsDontWant.contains(d)) {
+                availableDoorsToChoose.add(d);
             }
         }
-        return null;
+        Collections.shuffle(availableDoorsToChoose);
+        return availableDoorsToChoose.get(0);
     }
 
     // EFFECT: closes all doors in gameshow

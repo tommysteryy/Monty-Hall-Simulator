@@ -3,6 +3,9 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class GameShowTest {
@@ -216,8 +219,16 @@ class GameShowTest {
         gameShow.addDoor(door2G);
         gameShow.addDoor(door3G);
 
-        assertEquals(door3G, gameShow.doorThatIsntInTheList(1,2));
-        assertEquals(door1C, gameShow.doorThatIsntInTheList(2,3));
+        List<Door> lst1 = new ArrayList<>();
+        lst1.add(door1C);
+        lst1.add(door2G);
+
+        List<Door> lst2 = new ArrayList<>();
+        lst2.add(door2G);
+        lst2.add(door3G);
+
+        assertEquals(door3G, gameShow.randomDoorThatIsntInTheList(lst1));
+        assertEquals(door1C, gameShow.randomDoorThatIsntInTheList(lst2));
 
     }
 

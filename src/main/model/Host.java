@@ -8,15 +8,15 @@ public class Host {
         this.name = "Monty Hall";
     }
 
-    // REQUIRES: door to be in the gameshow
-    // MODIFIES: door
-    // EFFECT: changes door to open, then outputs the prize behind it as a string
-    public String openDoor(Door door) {
-        door.open();
-        if (door.isOpen()) {
-            return door.getPrize().reveal();
-        } else {
-            return "Door is not open";
-        }
-    }
+//    // REQUIRES: door to be in the gameshow
+//    // MODIFIES: door
+//    // EFFECT: changes door to open, then outputs the prize behind it as a string
+//    public String openDoor(Door door) {
+//        door.open();
+//        if (door.isOpen()) {
+//            return door.getPrize().reveal();
+//        } else {
+//            return "Door is not open";
+//        }
+//    }
 }

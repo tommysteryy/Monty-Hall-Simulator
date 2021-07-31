@@ -84,7 +84,7 @@ public class Door {
     public JSONObject toJson() {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("doorID", this.id);
-        jsonObject.put("Prize", this.prize.toString());
+        jsonObject.put("prize", this.prize);
         return jsonObject;
     }
 }

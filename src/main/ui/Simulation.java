@@ -6,6 +6,7 @@ import persistence.JsonWriter;
 
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Simulation {
@@ -29,8 +30,8 @@ public class Simulation {
                 + "Which tactic is better? Switching or not switching? The math behind the game says that one is much "
                 + "better than the other. Let's find out which is which. \n");
         Integer numTimesToRunSimulation = askHowManyTimesToRunSimulation();
-
         runTheSimulationLoop(sampleGameShow, numTimesToRunSimulation);
+
         System.out.println("Would you like to see the conditional probability behind this?\n\t-y (Yes!) \t -n(Nah!)");
         String answer = input.next();
         while (!(answer.equals("y")) && !answer.equals("n")) {
@@ -79,28 +80,40 @@ public class Simulation {
 
     public void customGameBuilding() {
         GameShow customGameShow = new GameShow();
-        customGameShow.setupStandardGameShow();
         System.out.println("Now, you have the chance to build your own Monty Hall game. You can fully explore"
                 + " the mathematics behind it as you make more and more combinations, and it'll build your intuition.");
-        System.out.println("\nTake a look at the doors we have right now. This is the standard gameshow set up:");
+        System.out.println("Do you want to load a saved Monty Hall game show set up?\n\t-y (Yes!)"
+                + "\t-n (No, I'll start from scratch.\n>>>");
+        String loadFileAnswer = askUserForInputPlusGuards("y", "n");
+        if (loadFileAnswer.equals("y")) {
+            customGameShow = loadGameShow();
+            System.out.println("Take a look at your doors right now.");
+        } else {
+            customGameShow.setupStandardGameShow();
+            System.out.println("\nTake a look at the doors we have right now. This is the standard gameshow set up:");
+        }
         customGameShow.openAllDoors();
         System.out.println(customGameShow.presentDoors());
-
         askAddDoorsWithLoop(customGameShow);
+        runSimulationsOnNewGameshow(customGameShow,
+                "Now, let's see how win probabilities are with your new gameshow format!");
 
-        System.out.println("Now, let's see how your win probabilities are with your new gameshow format!");
-        Integer numTimesToRunSimulation = askHowManyTimesToRunSimulation();
-        runTheSimulationLoop(customGameShow, numTimesToRunSimulation);
+        askIfWantToSaveAndSaving(customGameShow);
+        System.out.println("That's it! Monty Hall out.");
+    }
+
+    private void askIfWantToSaveAndSaving(GameShow customGameShow) {
         System.out.println("Would you like to save your simulation?\n\t-y (Yes!)\t -n (No, it's okay)");
-        String saveAnswer = input.next();
-        while (!(saveAnswer.equals("y")) && !saveAnswer.equals("n")) {
-            System.out.println("That was not a valid answer, please try again: ");
-            saveAnswer = input.next();
-        }
+        String saveAnswer = askUserForInputPlusGuards("y", "n");
         if (saveAnswer.equals("y")) {
             saveGameShow(customGameShow);
         }
-        System.out.println("That's it! Monty Hall out.");
+    }
+
+    private void runSimulationsOnNewGameshow(GameShow customGameShow, String s) {
+        System.out.println(s);
+        Integer numTimesToRunSimulation = askHowManyTimesToRunSimulation();
+        runTheSimulationLoop(customGameShow, numTimesToRunSimulation);
     }
 
     public void askAddDoorsWithLoop(GameShow gameShow) {
@@ -169,5 +182,28 @@ public class Simulation {
         } catch (FileNotFoundException e) {
             System.out.println("Unable to write to file: " + fileDestination);
         }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads workroom from file
+    private GameShow loadGameShow() {
+        GameShow gameShow = new GameShow();
+        try {
+            gameShow = jsonReader.read();
+            System.out.println("Loaded saved gameshow from " + fileDestination);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + fileDestination);
+        }
+        return gameShow;
+    }
+
+    // EFFECTS: asks for user input and has to be one of the two inputs, or else will keep asking
+    public String askUserForInputPlusGuards(String acceptedAnswer1, String acceptedAnswer2) {
+        String answerAdd = input.next();
+        while (!(answerAdd.equals(acceptedAnswer1)) && !answerAdd.equals(acceptedAnswer2)) {
+            System.out.println("That was not a valid answer, please try again: ");
+            answerAdd = input.next();
+        }
+        return answerAdd;
     }
 }

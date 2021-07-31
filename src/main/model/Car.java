@@ -8,9 +8,10 @@ public class Car extends Prize {
         this.colour = colour;
     }
 
+
     @Override
     public String reveal() {
-        return "a " + this.colour + " car";
+        return "a " + this.colour.toLowerCase() + " car";
     }
 
     @Override

@@ -1,15 +1,24 @@
 package ui;
 
 import model.*;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
 
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Simulation {
 
     private Scanner input = new Scanner(System.in);
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
+    private static final String fileDestination = "./data/customgameshow.json";
 
-    public Simulation() {}
+    public Simulation() {
+        jsonWriter = new JsonWriter(fileDestination);
+        jsonReader = new JsonReader(fileDestination);
+    }
 
     public void runStandardGameSimulations() {
 
@@ -82,6 +91,15 @@ public class Simulation {
         System.out.println("Now, let's see how your win probabilities are with your new gameshow format!");
         Integer numTimesToRunSimulation = askHowManyTimesToRunSimulation();
         runTheSimulationLoop(customGameShow, numTimesToRunSimulation);
+        System.out.println("Would you like to save your simulation?\n\t-y (Yes!)\t -n (No, it's okay)");
+        String saveAnswer = input.next();
+        while (!(saveAnswer.equals("y")) && !saveAnswer.equals("n")) {
+            System.out.println("That was not a valid answer, please try again: ");
+            saveAnswer = input.next();
+        }
+        if (saveAnswer.equals("y")) {
+            saveGameShow(customGameShow);
+        }
         System.out.println("That's it! Monty Hall out.");
     }
 
@@ -141,4 +159,15 @@ public class Simulation {
         return numTimesToRunSimulation;
     }
 
+    // EFFECTS: saves the workroom to file
+    private void saveGameShow(GameShow gameShow) {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(gameShow);
+            jsonWriter.close();
+            System.out.println("Saved your custom gameshow to " + fileDestination);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + fileDestination);
+        }
+    }
 }

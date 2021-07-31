@@ -12,4 +12,9 @@ public class Car extends Prize {
     public String reveal() {
         return "a " + this.colour + " car";
     }
+
+    @Override
+    public String toString() {
+        return "Car";
+    }
 }

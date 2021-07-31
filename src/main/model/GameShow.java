@@ -1,5 +1,8 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -327,6 +330,20 @@ public class GameShow {
             }
         }
         return id;
+    }
+
+    public JSONObject toJson() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("doors", doorsToJson());
+        return jsonObject;
+    }
+
+    private JSONArray doorsToJson() {
+        JSONArray jsonArray = new JSONArray();
+        for (Door d: doors) {
+            jsonArray.put(d.toJson());
+        }
+        return jsonArray;
     }
 
 }

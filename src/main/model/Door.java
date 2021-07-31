@@ -1,5 +1,8 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 public class Door {
 
     private int id; // represents the door number (every door in the game must be unique)
@@ -78,4 +81,10 @@ public class Door {
         return b;
     }
 
+    public JSONObject toJson() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("doorID", this.id);
+        jsonObject.put("Prize", this.prize.toString());
+        return jsonObject;
+    }
 }

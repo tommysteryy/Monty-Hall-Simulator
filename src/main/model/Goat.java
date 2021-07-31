@@ -9,5 +9,10 @@ public class Goat extends Prize {
         return "a goat";
     }
 
+    @Override
+    public String toString() {
+        return "Goat";
+    }
+
 
 }

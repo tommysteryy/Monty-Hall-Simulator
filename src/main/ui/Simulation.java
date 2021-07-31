@@ -1,22 +1,11 @@
 package ui;
 
-import model.Car;
-import model.Door;
-import model.GameShow;
-import model.Goat;
+import model.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+
 import java.util.Scanner;
 
 public class Simulation {
-
-    private final Car carRed = new Car("red");
-    private final Goat goat = new Goat();
-    private final Door door1C = new Door(1, carRed);
-    private final Door door2G = new Door(2, goat);
-    private final Door door3G = new Door(3, goat);
 
     private Scanner input = new Scanner(System.in);
 
@@ -25,24 +14,34 @@ public class Simulation {
     public void runStandardGameSimulations() {
 
         GameShow sampleGameShow = new GameShow();
-        List<Door> listofStandardDoors = new ArrayList<>();
-        List<Door> listToUse = Arrays.asList(door1C, door2G, door3G);
-        listofStandardDoors.addAll(listToUse);
-        sampleGameShow.setupGameShow(listofStandardDoors);
+        sampleGameShow.setupStandardGameShow();
 
-        System.out.println("Now that you have seen the gameshow, we will run some simulations. \n "
-                + "How many times would you like to run the simulation? Please input a number between 100 and 1000.\n");
-        Integer numTimesToRunSimulation = Integer.parseInt(input.next());
-        while (numTimesToRunSimulation > 1000 || numTimesToRunSimulation < 100) {
-            System.out.println("That was not between the range of 100 and 1000. Please try again.");
-            numTimesToRunSimulation = Integer.parseInt(input.next());
-        }
+        System.out.println("Now that you have seen the gameshow, we will run some simulations. \n"
+                + "Which tactic is better? Switching or not switching? The math behind the game says that one is much "
+                + "better than the other. Let's find out which is which. \n");
+        Integer numTimesToRunSimulation = askHowManyTimesToRunSimulation();
 
         runTheSimulationLoop(sampleGameShow, numTimesToRunSimulation);
+        System.out.println("Would you like to see the conditional probability behind this?\n\t-y (Yes!) \t -n(Nah!)");
+        String answer = input.next();
+        while (!(answer.equals("y")) && !answer.equals("n")) {
+            System.out.println("That was not a valid answer, please try again: ");
+            answer = input.next();
+        }
+        if (answer.equals("y")) {
+            showMathOfGame();
+        } else {
+            System.out.println("Okay! Maybe next time. Let's move to the final section of our game.");
+            customGameBuilding();
+        }
+    }
+
+    public void showMathOfGame() {
+        // FUNCTION TO SHOW ALL THE MATH BEHIND THE 3-DOOR GAME
     }
 
     public void runTheSimulationLoop(GameShow gameShow, int numTimesToRunSimulation) {
-        System.out.println("Okay, starting now...");
+        System.out.println("Okay, starting now... \n");
         float numWinsSwitch = 0;
         float numWinsDontSwitch = 0;
         for (int i = 0; i < numTimesToRunSimulation; i++) {
@@ -58,8 +57,88 @@ public class Simulation {
         }
         float switchWinProbability = numWinsSwitch / numTimesToRunSimulation;
         float dontSwitchWinProbability = numWinsDontSwitch / numTimesToRunSimulation;
+        float multiplierForSwitching = switchWinProbability / dontSwitchWinProbability;
 
-        System.out.println("Okay! The results are in:\n \t -Switching everytime: Win probability = "
-                + switchWinProbability + "\t -Not Switching every time: Win probability = " + dontSwitchWinProbability);
+        System.out.println("Okay! The results are in:\n \t -Switching everytime: With this tactic, you won "
+                + (int) numWinsSwitch + " times out of " + numTimesToRunSimulation + ", giving you a win probability "
+                + "of " + switchWinProbability + ".\n");
+        System.out.println("\t -Not Switching every time: With this tactic, you won "
+                + (int) numWinsDontSwitch + " times out of " + numTimesToRunSimulation + ", giving you a win "
+                + "probability of " + dontSwitchWinProbability + ".\n");
+        System.out.println("This means you are " + multiplierForSwitching + " more likely to win if you switch!");
     }
+
+    public void customGameBuilding() {
+        GameShow customGameShow = new GameShow();
+        customGameShow.setupStandardGameShow();
+        System.out.println("Now, you have the chance to build your own Monty Hall game. You can fully explore"
+                + " the mathematics behind it as you make more and more combinations, and it'll build your intuition.");
+        System.out.println("\nTake a look at the doors we have right now. This is the standard gameshow set up:");
+        customGameShow.openAllDoors();
+        System.out.println(customGameShow.presentDoors());
+
+        askAddDoorsWithLoop(customGameShow);
+
+        System.out.println("Now, let's see how your win probabilities are with your new gameshow format!");
+        Integer numTimesToRunSimulation = askHowManyTimesToRunSimulation();
+        runTheSimulationLoop(customGameShow, numTimesToRunSimulation);
+        System.out.println("That's it! Monty Hall out.");
+    }
+
+    public void askAddDoorsWithLoop(GameShow gameShow) {
+        System.out.println("Do you want to add a door?\n\t -y (Yes!)\t -n (No, the current game is okay)");
+        String answerAdd = input.next();
+        while (!(answerAdd.equals("y")) && !answerAdd.equals("n")) {
+            System.out.println("That was not a valid answer, please try again: ");
+            answerAdd = input.next();
+        }
+        while (answerAdd.equals("y")) {
+            gameShow.openAllDoors();
+            System.out.println("This is what we have so far: ");
+            System.out.println(gameShow.presentDoors());
+            addDoorsToGame(gameShow);
+            System.out.println("Do you want to add another door?\n\t -y (Yes!)\t -n (No, I'm done!)");
+            answerAdd = input.next();
+            while (!(answerAdd.equals("y")) && !answerAdd.equals("n")) {
+                System.out.println("That was not a valid answer, please try again: ");
+                answerAdd = input.next();
+            }
+        }
+        System.out.println("Great! This is the result of your DIY gameshow then!");
+        gameShow.openAllDoors();
+        System.out.println(gameShow.presentDoors());
+    }
+
+    public GameShow addDoorsToGame(GameShow gameShow) {
+        int currentDoorID = gameShow.getLargestDoorID() + 1;
+        System.out.println("You are now making Door " + currentDoorID + ". Do you want to have a goat or a "
+                + "car behind this door?\n\t -g (Goat!)\t -c (Car!)");
+        String prizeForDoor = input.next();
+        while (!prizeForDoor.equals("g") && !prizeForDoor.equals("c")) {
+            System.out.println("That was not a valid answer, please try again: ");
+            prizeForDoor = input.next();
+        }
+        if (prizeForDoor.equals("g")) {
+            Prize goat = new Goat();
+            Door doorBeingAdded = new Door(currentDoorID, goat);
+            gameShow.addDoor(doorBeingAdded);
+        } else {
+            Prize car = new Car("red");
+            Door doorBeingAdded = new Door(currentDoorID, car);
+            gameShow.addDoor(doorBeingAdded);
+        }
+        return gameShow;
+    }
+
+    public Integer askHowManyTimesToRunSimulation() {
+        System.out.println("How many times would you like to run the simulation? Please input a "
+                + "number between 100 and 1000.\n");
+        Integer numTimesToRunSimulation = Integer.parseInt(input.next());
+        while (numTimesToRunSimulation > 1000 || numTimesToRunSimulation < 100) {
+            System.out.println("That was not between the range of 100 and 1000. Please try again.");
+            numTimesToRunSimulation = Integer.parseInt(input.next());
+        }
+        return numTimesToRunSimulation;
+    }
+
 }

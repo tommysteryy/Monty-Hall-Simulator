@@ -61,6 +61,7 @@ public class RunGameShow {
                 + "Okay, let me show you something.");
         Door doorToReveal = gameShow.nonSelectedGoatDoor();
         gameShow.openDoor(doorToReveal.getId());
+        // NEED TO MAKE THIS INDEX-BASED SO THAT THE DOORS WILL CHANGE
         System.out.println(gameShow.presentDoors());
         switchDoors(doorChoice, doorToReveal.getId()); // have to supply to method because it depends on previous things
         System.out.println(gameShow.presentDoors());
@@ -70,7 +71,7 @@ public class RunGameShow {
         if (wantToPlayAgain) {
             oneRegularGame();
         } else {
-            System.out.println("Thank you, and goodbye!");
+            System.out.println("Thank you, and goodbye!\n");
         }
     }
 

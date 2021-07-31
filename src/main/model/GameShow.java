@@ -11,6 +11,12 @@ public class GameShow {
     private List<Door> doors;
     private Host host;
 
+    private final Car carRed = new Car("red");
+    private final Goat goat = new Goat();
+    private final Door door1C = new Door(1, carRed);
+    private final Door door2G = new Door(2, goat);
+    private final Door door3G = new Door(3, goat);
+
     public GameShow() {
         doors = new ArrayList<>();
         host = new Host();
@@ -98,7 +104,7 @@ public class GameShow {
     public String presentDoors() {
         String out = new String();
 
-        for (Door d : this.getDoors()) {
+        for (Door d : doors) {
             out += "\t Door " + d.getId();
             if (d.isSelected()) {
                 out += " (selected):";
@@ -135,6 +141,7 @@ public class GameShow {
         this.selectDoor(firstPickDoor.getId());
 
         Door revealDoor = this.nonSelectedGoatDoor();
+
         List<Door> listOfDoorsDontWant = new ArrayList<>();
         listOfDoorsDontWant.add(firstPickDoor);
         listOfDoorsDontWant.add(revealDoor);
@@ -160,10 +167,21 @@ public class GameShow {
 //        }
 //    }
 
+    // MODIFIES: this
+    // EFFECT: sets up a standard gameshow for a normal round of simulations or games
+    public void setupStandardGameShow() {
+        this.clearDoors();
+        this.addDoor(door1C);
+        this.addDoor(door2G);
+        this.addDoor(door3G);
+        this.randomizeDoors();
+        this.closeAllDoors();
+        this.unselectAllDoors();
+    }
 
     // MODIFIES: this
-    // EFFECT: sets up the gameshow for a regular round of simulations or games.
-    public void setupGameShow(List<Door> doorsToAddToGame) {
+    // EFFECT: sets up the gameshow for an ARBITRARY MADE round of simulations or games.
+    public void setupArbitraryGameShow(List<Door> doorsToAddToGame) {
         this.clearDoors();
         for (Door d: doorsToAddToGame) {
             this.addDoor(d);
@@ -287,11 +305,28 @@ public class GameShow {
         }
     }
 
+    // EFFECT: opens all doors in gameshow
+    public void openAllDoors() {
+        for (Door d: doors) {
+            d.open();
+        }
+    }
+
     // EFFECT: unselects all doors
     public void unselectAllDoors() {
         for (Door d: doors) {
             d.unselect();
         }
+    }
+
+    public Integer getLargestDoorID() {
+        int id = 0;
+        for (Door d: doors) {
+            if (d.getId() > id) {
+                id = d.getId();
+            }
+        }
+        return id;
     }
 
 }

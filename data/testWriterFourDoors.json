@@ -1,0 +1,18 @@
+{"doors": [
+    {
+        "doorID": 1,
+        "prize": "Goat"
+    },
+    {
+        "doorID": 2,
+        "prize": "Goat"
+    },
+    {
+        "doorID": 3,
+        "prize": "Car"
+    },
+    {
+        "doorID": 4,
+        "prize": "Goat"
+    }
+]}

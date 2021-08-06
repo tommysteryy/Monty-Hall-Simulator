@@ -14,11 +14,14 @@ public class Simulation {
     private Scanner input = new Scanner(System.in);
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
-    private static final String fileDestination = "./data/customgameshow.json";
+    public static final String fileDestination = "./data/customgameshow.json";
+    private GameShow gameShow;
 
     public Simulation() {
         jsonWriter = new JsonWriter(fileDestination);
         jsonReader = new JsonReader(fileDestination);
+        gameShow = new GameShow();
+        gameShow.setupStandardGameShow();
     }
 
     public void runStandardGameSimulations() {
@@ -173,7 +176,7 @@ public class Simulation {
     }
 
     // EFFECTS: saves the workroom to file
-    private void saveGameShow(GameShow gameShow) {
+    public void saveGameShow(GameShow gameShow) {
         try {
             jsonWriter.open();
             jsonWriter.write(gameShow);
@@ -186,7 +189,7 @@ public class Simulation {
 
     // MODIFIES: this
     // EFFECTS: loads workroom from file
-    private GameShow loadGameShow() {
+    public GameShow loadGameShow() {
         GameShow gameShow = new GameShow();
         try {
             gameShow = jsonReader.read();

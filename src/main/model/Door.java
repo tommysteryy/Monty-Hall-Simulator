@@ -3,6 +3,8 @@ package model;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.awt.*;
+
 public class Door {
 
     private int id; // represents the door number (every door in the game must be unique)
@@ -12,6 +14,11 @@ public class Door {
                             // If a door is open, that means the prize can be shown to the contestant
                             // if a door is closed, the door can't be shown to the contestant
     private boolean selected; // represents if the user has selected this door
+
+    private int xpos = 90;
+    private int ypos = 90;
+    private int width = 100;
+    private int height = 200;
 
     // Constructor
     public Door(int id, Prize prize) {
@@ -86,5 +93,14 @@ public class Door {
         jsonObject.put("doorID", this.id);
         jsonObject.put("prize", this.prize);
         return jsonObject;
+    }
+
+    public void draw(Graphics g) {
+        g.drawRect(xpos, ypos, width, height);
+        g.setColor(Color.green);
+//        if (this.isOpen()) {
+//            // add this.prize() on top
+//        }
+
     }
 }

@@ -1,13 +1,21 @@
 package model;
 
+import com.sun.corba.se.impl.orbutil.graph.Graph;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.awt.*;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+
+import static ui.Simulation.fileDestination;
 
 public class GameShow {
 
@@ -19,6 +27,9 @@ public class GameShow {
     private final Door door1C = new Door(1, carRed);
     private final Door door2G = new Door(2, goat);
     private final Door door3G = new Door(3, goat);
+
+    private JsonReader jsonReader;
+    private JsonWriter jsonWriter;
 
     public GameShow() {
         doors = new ArrayList<>();
@@ -344,6 +355,31 @@ public class GameShow {
             jsonArray.put(d.toJson());
         }
         return jsonArray;
+    }
+
+    // MODIFIES: this
+    // EFFECT: changes itself to the loaded gameshow
+    public void loadGameShow() {
+        GameShow gameShow = new GameShow();
+        try {
+            gameShow = jsonReader.read();
+            System.out.println("Loaded saved gameshow from " + fileDestination);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + fileDestination);
+        }
+        this.doors = gameShow.getDoors();
+    }
+
+    // EFFECTS; saves this gameshow into the file.
+    public void saveGameShow() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(this);
+            jsonWriter.close();
+            System.out.println("Saved your custom gameshow to " + fileDestination);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + fileDestination);
+        }
     }
 
 }

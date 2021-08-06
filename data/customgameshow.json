@@ -1,18 +1,10 @@
 {"doors": [
     {
-        "doorID": 9,
+        "doorID": 5,
         "prize": "Car"
     },
     {
-        "doorID": 1,
-        "prize": "Car"
-    },
-    {
-        "doorID": 8,
-        "prize": "Car"
-    },
-    {
-        "doorID": 6,
+        "doorID": 2,
         "prize": "Goat"
     },
     {
@@ -20,19 +12,15 @@
         "prize": "Goat"
     },
     {
+        "doorID": 1,
+        "prize": "Car"
+    },
+    {
+        "doorID": 6,
+        "prize": "Goat"
+    },
+    {
         "doorID": 3,
-        "prize": "Goat"
-    },
-    {
-        "doorID": 7,
-        "prize": "Goat"
-    },
-    {
-        "doorID": 2,
-        "prize": "Goat"
-    },
-    {
-        "doorID": 5,
         "prize": "Goat"
     }
 ]}

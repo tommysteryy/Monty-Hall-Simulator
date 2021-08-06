@@ -5,8 +5,8 @@ public class Main {
     private static Simulation simulation = new Simulation();
 
     public static void main(String[] args) {
-//        game.gameIntro();
-//        game.oneRegularGame();
-        simulation.runStandardGameSimulations();
+        game.gameIntro();
+        game.oneRegularGame();
+//        simulation.runStandardGameSimulations();
     }
 }

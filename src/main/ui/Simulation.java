@@ -215,17 +215,20 @@ public class Simulation {
     public List<Float> runTheSimulationLoopReturnProbabilities(GameShow gameShow, int numTimesToRunSimulation) {
 //        System.out.println("Okay, starting now... \n");
         List<Float> listOfProbabilities = new ArrayList<>();
+        GameShow proxyGameShow = new GameShow();
+
+        proxyGameShow.setupArbitraryGameShow(gameShow.getDoors());
 
         float numWinsSwitch = 0;
         float numWinsDontSwitch = 0;
         for (int i = 0; i < numTimesToRunSimulation; i++) {
 
-            gameShow.unselectAllDoors();
+            proxyGameShow.unselectAllDoors();
 
-            if (gameShow.runSimulationOnceDontSwitch()) {
+            if (proxyGameShow.runSimulationOnceDontSwitch()) {
                 numWinsDontSwitch += 1;
             }
-            if (gameShow.runSimulationOnceSwitch()) {
+            if (proxyGameShow.runSimulationOnceSwitch()) {
                 numWinsSwitch += 1;
             }
         }

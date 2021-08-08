@@ -5,22 +5,18 @@ package ui;
 The full game panel you'll see here
  */
 
-import model.Door;
 import model.GameShow;
-import model.Goat;
-import ui.doortools.MainTest;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
 public class MainGUI extends JFrame {
     private GameShow gameShow;
-    private JPanel doorPanel;
+    private DoorPanel doorPanel;
     private TextPanel textPanel;
-    private SidePanel sidePanel;
+    private ButtonsPanel buttonsPanel;
     private JScrollPane scrollPane;
+    private GraphPanel graphPanel;
 
     public MainGUI() {
         super("Monty Hall Simulation App");
@@ -34,15 +30,21 @@ public class MainGUI extends JFrame {
 //        }
         doorPanel = new DoorPanel(gameShow);
         textPanel = new TextPanel();
-        sidePanel = new SidePanel(gameShow);
+        buttonsPanel = new ButtonsPanel(gameShow);
+        graphPanel = new GraphPanel(gameShow);
+
+        doorPanel.setSidePanel(buttonsPanel);
+        buttonsPanel.setDoorPanel(doorPanel);
+        buttonsPanel.setGraphPanel(graphPanel);
+        graphPanel.setButtonsPanel(buttonsPanel);
 
         scrollPane = new JScrollPane(doorPanel);
-        scrollPane.setPreferredSize(new Dimension(800, 1000));
+        scrollPane.setPreferredSize(new Dimension(800, 800));
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
         add(scrollPane);
-        add(textPanel, BorderLayout.SOUTH);
-        add(sidePanel, BorderLayout.EAST);
+        add(buttonsPanel, BorderLayout.SOUTH);
+        add(graphPanel, BorderLayout.EAST);
         pack();
         centreOnScreen();
         setVisible(true);
@@ -63,3 +65,4 @@ public class MainGUI extends JFrame {
 
 
 }
+

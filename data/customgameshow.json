@@ -4,11 +4,31 @@
         "prize": "Goat"
     },
     {
+        "doorID": 1,
+        "prize": "Car"
+    },
+    {
         "doorID": 2,
         "prize": "Goat"
     },
     {
-        "doorID": 1,
+        "doorID": 4,
+        "prize": "Goat"
+    },
+    {
+        "doorID": 5,
         "prize": "Car"
+    },
+    {
+        "doorID": 6,
+        "prize": "Car"
+    },
+    {
+        "doorID": 7,
+        "prize": "Car"
+    },
+    {
+        "doorID": 8,
+        "prize": "Goat"
     }
 ]}

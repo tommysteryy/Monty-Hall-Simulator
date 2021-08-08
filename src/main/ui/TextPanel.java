@@ -14,7 +14,7 @@ A smaller bar below the DoorPanel (same width) that rolls the text/instructions 
  */
 public class TextPanel extends JPanel implements ActionListener {
 
-    private static final int WIDTH = 800;
+    private static final int WIDTH = 400;
     private static final int HEIGHT = 200;
     private static final int LABELWIDTH = 200;
     private static final int LABELHEIGHT = 150;
@@ -25,7 +25,7 @@ public class TextPanel extends JPanel implements ActionListener {
 
     public TextPanel() {
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
-        setBackground(Color.white);
+        setBackground(Color.black);
         displayedText = new JLabel("TEST LABEL");
         displayedText.setPreferredSize(new Dimension(LABELWIDTH, LABELHEIGHT));
         displayedText.setFont(Font.getFont(FONT));

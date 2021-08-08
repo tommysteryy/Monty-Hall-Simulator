@@ -4,11 +4,7 @@ import model.Door;
 import model.GameShow;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.io.File;
 import java.util.List;
 
 /*
@@ -19,17 +15,19 @@ Door img: http://clipart-library.com/clip-art/41-415526_door-png-download-png-im
 
 public class DoorPanel extends JPanel {
 
-    private static final int WIDTH = 820;
-    private static final int HEIGHT = 600;
+    private static final int WIDTH = 800;
+    private static final int HEIGHT = 1500;
     private static final int DOORHEIGHT = 175;
     private static final int DOORWIDTH = 100;
     private static final int DOOR_START_XPOS = 90;
     private static final int DOOR_START_YPOS = 90;
     private GameShow gameshow;
-    private List<JLabel> doorImages;
-    private JLabel testDoorImage;
-    private ImageIcon doorIcon;
-    private JScrollPane scrollPane;
+    private ButtonsPanel buttonsPanel;
+
+//    private List<JLabel> doorImages;
+//    private JLabel testDoorImage;
+//    private ImageIcon doorIcon;
+//    private JScrollPane scrollPane;
 
     public DoorPanel(GameShow gameshow) {
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -37,8 +35,8 @@ public class DoorPanel extends JPanel {
         setLayout(null);
         this.gameshow = gameshow;
 
-
     }
+
 
     @Override
     public void paintComponent(Graphics g) {
@@ -52,6 +50,16 @@ public class DoorPanel extends JPanel {
 
         drawDoors(g);
 //        drawRectangles(g);
+//        drawGraph(g, new Float(0.5), new Float(0.9));
+    }
+
+    private void drawGraph(Graphics g, Float switchWinProbability, Float dontSwitchWinProbability) {
+        g.drawRect(630, 90, 50, (int) (switchWinProbability * 100));
+        g.fillRect(630, 90, 50, (int) (switchWinProbability * 100));
+        g.drawRect(700, 90, 50, (int) (dontSwitchWinProbability * 100));
+        g.fillRect(700, 90, 50, (int) (dontSwitchWinProbability * 100));
+        g.setColor(Color.green);
+
     }
 
 
@@ -164,5 +172,13 @@ public class DoorPanel extends JPanel {
 //
 //
 //    }
+
+    public void setSidePanel(ButtonsPanel buttonsPanel) {
+        this.buttonsPanel = buttonsPanel;
+    }
+
+    public void showProbabilityResults(Float switchWinProbability, Float dontSwitchWinProbability) {
+
+    }
 }
 

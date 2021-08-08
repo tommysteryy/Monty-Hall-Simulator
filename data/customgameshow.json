@@ -4,16 +4,16 @@
         "prize": "Goat"
     },
     {
-        "doorID": 1,
-        "prize": "Car"
-    },
-    {
         "doorID": 2,
         "prize": "Goat"
     },
     {
+        "doorID": 1,
+        "prize": "Car"
+    },
+    {
         "doorID": 4,
-        "prize": "Goat"
+        "prize": "Car"
     },
     {
         "doorID": 5,
@@ -21,14 +21,22 @@
     },
     {
         "doorID": 6,
-        "prize": "Car"
+        "prize": "Goat"
     },
     {
         "doorID": 7,
-        "prize": "Car"
+        "prize": "Goat"
     },
     {
         "doorID": 8,
         "prize": "Goat"
+    },
+    {
+        "doorID": 9,
+        "prize": "Goat"
+    },
+    {
+        "doorID": 10,
+        "prize": "Car"
     }
 ]}

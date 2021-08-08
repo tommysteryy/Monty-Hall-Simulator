@@ -7,6 +7,7 @@ import persistence.JsonWriter;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -235,6 +236,14 @@ public class Simulation {
         float switchWinProbability = numWinsSwitch / numTimesToRunSimulation;
         float dontSwitchWinProbability = numWinsDontSwitch / numTimesToRunSimulation;
 
+//        float resultSwitch = BigDecimal.valueOf(switchWinProbability)
+//                .setScale(2, BigDecimal.ROUND_HALF_DOWN)
+//                .floatValue();
+//        float resultDontSwitch = BigDecimal.valueOf(dontSwitchWinProbability)
+//                .setScale(2, BigDecimal.ROUND_HALF_DOWN)
+//                .floatValue();
+
+//        listOfProbabilities.add(switchWinProbability);
         listOfProbabilities.add(switchWinProbability);
         listOfProbabilities.add(dontSwitchWinProbability);
 

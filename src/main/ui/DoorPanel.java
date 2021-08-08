@@ -49,18 +49,19 @@ public class DoorPanel extends JPanel {
 //        placeAllDoors();
 
         drawDoors(g);
+
 //        drawRectangles(g);
 //        drawGraph(g, new Float(0.5), new Float(0.9));
     }
 
-    private void drawGraph(Graphics g, Float switchWinProbability, Float dontSwitchWinProbability) {
-        g.drawRect(630, 90, 50, (int) (switchWinProbability * 100));
-        g.fillRect(630, 90, 50, (int) (switchWinProbability * 100));
-        g.drawRect(700, 90, 50, (int) (dontSwitchWinProbability * 100));
-        g.fillRect(700, 90, 50, (int) (dontSwitchWinProbability * 100));
-        g.setColor(Color.green);
-
-    }
+//    private void drawGraph(Graphics g, Float switchWinProbability, Float dontSwitchWinProbability) {
+//        g.drawRect(630, 90, 50, (int) (switchWinProbability * 100));
+//        g.fillRect(630, 90, 50, (int) (switchWinProbability * 100));
+//        g.drawRect(700, 90, 50, (int) (dontSwitchWinProbability * 100));
+//        g.fillRect(700, 90, 50, (int) (dontSwitchWinProbability * 100));
+//        g.setColor(Color.green);
+//
+//    }
 
 
 //    public void drawRectangles(Graphics g) {

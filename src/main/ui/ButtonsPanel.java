@@ -7,8 +7,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
+import java.text.Format;
 import java.util.ArrayList;
 import java.util.List;
+
 
 /*
 Side panel hosts either:
@@ -29,6 +32,8 @@ public class ButtonsPanel extends JPanel implements ActionListener {
     private JButton saveDoorsButton;
     private JButton loadDoorsButton;
     private JButton runSimulationButton;
+
+    private static DecimalFormat df = new DecimalFormat("#.00");
 
     public ButtonsPanel(GameShow gameShow) {
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -129,8 +134,8 @@ public class ButtonsPanel extends JPanel implements ActionListener {
             doorPanel.repaint();
         } else if (e.getSource() == runSimulationButton) {
             loProbs = simulation.runTheSimulationLoopReturnProbabilities(gameShow, 1000);
-            Float switchWinProbability = loProbs.get(0);
-            Float dontSwitchWinProbability = loProbs.get(1);
+            float switchWinProbability = loProbs.get(0);
+            float dontSwitchWinProbability = loProbs.get(1);
             graphPanel.showProbabilityResults(switchWinProbability, dontSwitchWinProbability);
             doorPanel.repaint();
         }

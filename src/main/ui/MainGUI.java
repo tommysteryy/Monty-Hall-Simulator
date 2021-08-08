@@ -8,6 +8,7 @@ The full game panel you'll see here
 import model.Door;
 import model.GameShow;
 import model.Goat;
+import ui.doortools.MainTest;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,9 +17,10 @@ import java.awt.event.KeyEvent;
 
 public class MainGUI extends JFrame {
     private GameShow gameShow;
-    private DoorPanel doorPanel;
+    private JPanel doorPanel;
     private TextPanel textPanel;
     private SidePanel sidePanel;
+    private JScrollPane scrollPane;
 
     public MainGUI() {
         super("Monty Hall Simulation App");
@@ -27,18 +29,20 @@ public class MainGUI extends JFrame {
 
         gameShow = new GameShow();
         gameShow.setupStandardGameShow();
-        for (int i = 4; i < 15; i++) {
-            gameShow.addDoor(new Door(i, new Goat()));
-        }
+//        for (int i = 4; i < 15; i++) {
+//            gameShow.addDoor(new Door(i, new Goat()));
+//        }
         doorPanel = new DoorPanel(gameShow);
         textPanel = new TextPanel();
         sidePanel = new SidePanel(gameShow);
 
-        add(doorPanel);
+        scrollPane = new JScrollPane(doorPanel);
+        scrollPane.setPreferredSize(new Dimension(800, 1000));
+        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+
+        add(scrollPane);
         add(textPanel, BorderLayout.SOUTH);
         add(sidePanel, BorderLayout.EAST);
-
-//        addKeyListener(new KeyHandler());
         pack();
         centreOnScreen();
         setVisible(true);

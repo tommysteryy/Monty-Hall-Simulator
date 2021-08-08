@@ -2,13 +2,14 @@ package ui;
 
 import model.Door;
 import model.GameShow;
-import ui.doortools.DoorTool;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.io.File;
 import java.util.List;
-
-import static sun.swing.SwingUtilities2.drawRect;
 
 /*
 A panel where all doors are displayed. Can be 3 doors (standard) but can also be an arbitrary number
@@ -25,18 +26,30 @@ public class DoorPanel extends JPanel {
     private static final int DOOR_START_XPOS = 90;
     private static final int DOOR_START_YPOS = 90;
     private GameShow gameshow;
-    private List<DoorTool> doorTools;
-
+    private List<JLabel> doorImages;
+    private JLabel testDoorImage;
+    private ImageIcon doorIcon;
+    private JScrollPane scrollPane;
 
     public DoorPanel(GameShow gameshow) {
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
-        setBackground(Color.black);
+        setBackground(Color.gray);
+        setLayout(null);
         this.gameshow = gameshow;
+
+
     }
 
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+//        testDoorImage = new JLabel();
+//        doorIcon = new ImageIcon("src/main/ui/doorfinal.png");
+//        testDoorImage.setIcon(doorIcon);
+//        testDoorImage.setBounds(90,90,71, 96);
+//        add(testDoorImage);
+//        placeAllDoors();
+
         drawDoors(g);
 //        drawRectangles(g);
     }
@@ -91,8 +104,10 @@ public class DoorPanel extends JPanel {
 
     private void drawDoor(Graphics g, Door d, int xpos, int ypos) {
         g.drawRect(xpos, ypos, DOORWIDTH, DOORHEIGHT);
+        g.fillRect(xpos, ypos, DOORWIDTH, DOORHEIGHT);
         if (d.prizeIsGoat()) {
-            g.setColor(Color.green);
+            g.setColor(new Color(176, 129, 89));
+
 //            g.setFont(new Font("TimesRoman", Font.PLAIN, 80));
 //            g.drawString("Goat",(topLeftCoordinate + DOORWIDTH) / 2, (90 + DOORHEIGHT) / 2);
         } else {
@@ -102,4 +117,52 @@ public class DoorPanel extends JPanel {
 
     }
 
+//    public void placeAllDoors() {
+////        for (Door d: gameshow.getDoors()) {
+////            drawDoor(g, d)
+////            add(Box.createHorizontalStrut(50));
+////        }
+//        int separation = 180;
+//        int numFullRows = gameshow.getSize() / 4;
+//
+//
+//        for (int i = 0; i < numFullRows; i++) {
+//            List<Door> doorsToDraw = gameshow.getDoors().subList((i * 4), ((i + 1) * 4));
+//            placeSubListOfDoors(doorsToDraw, i * 250 + 90);
+//        }
+//
+//        int numberOfLeftoverDoors = gameshow.getSize() % 4;
+//        List<Door> doorsLeftoverToDraw = gameshow.getDoors().subList(gameshow.getSize() - numberOfLeftoverDoors,
+//                gameshow.getSize());
+//        placeSubListOfDoors(doorsLeftoverToDraw, numFullRows * 250 + 90);
+//
+//    }
+//
+//    private void placeSubListOfDoors(List<Door> doorsToDraw, int ypos) {
+//        for (int i = 0; i < (doorsToDraw.size()); i++) {
+//            Door doorToDraw = doorsToDraw.get(i);
+//            placeDoor(doorToDraw, 90 + i * 180, ypos);
+//        }
+//    }
+//
+//
+//    private void placeDoor(Door d, int xpos, int ypos) {
+//
+//        testDoorImage = new JLabel();
+//        doorIcon = new ImageIcon("src/main/ui/doorfinal.png");
+//        testDoorImage.setIcon(doorIcon);
+//        testDoorImage.setBounds(xpos, ypos, 71, 96);
+//        add(testDoorImage);
+//
+//        if (d.prizeIsGoat()) {
+//            Border border = BorderFactory.createLineBorder(Color.green);
+//            testDoorImage.setBorder(border);
+//        } else {
+//            Border border = BorderFactory.createLineBorder(Color.cyan);
+//            testDoorImage.setBorder(border);
+//        }
+//
+//
+//    }
 }
+

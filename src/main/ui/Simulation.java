@@ -7,6 +7,8 @@ import persistence.JsonWriter;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Simulation {
@@ -208,5 +210,32 @@ public class Simulation {
             answerAdd = input.next();
         }
         return answerAdd;
+    }
+
+    public List<Float> runTheSimulationLoopReturnProbabilities(GameShow gameShow, int numTimesToRunSimulation) {
+//        System.out.println("Okay, starting now... \n");
+        List<Float> listOfProbabilities = new ArrayList<>();
+
+        float numWinsSwitch = 0;
+        float numWinsDontSwitch = 0;
+        for (int i = 0; i < numTimesToRunSimulation; i++) {
+
+            gameShow.unselectAllDoors();
+
+            if (gameShow.runSimulationOnceDontSwitch()) {
+                numWinsDontSwitch += 1;
+            }
+            if (gameShow.runSimulationOnceSwitch()) {
+                numWinsSwitch += 1;
+            }
+        }
+        float switchWinProbability = numWinsSwitch / numTimesToRunSimulation;
+        float dontSwitchWinProbability = numWinsDontSwitch / numTimesToRunSimulation;
+
+        listOfProbabilities.add(switchWinProbability);
+        listOfProbabilities.add(dontSwitchWinProbability);
+
+        return listOfProbabilities;
+
     }
 }

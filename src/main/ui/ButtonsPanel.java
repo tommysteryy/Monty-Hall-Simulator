@@ -119,26 +119,23 @@ public class ButtonsPanel extends JPanel implements ActionListener {
         if (e.getSource() == addCarDoorButton) {
             Prize carPrize = new Car("red");
             gameShow.addDoor(new Door(nextDoorID, carPrize));
-            doorPanel.repaint();
-            doorPanel.updateUI();
         } else if (e.getSource() == addGoatDoorButton) {
             Prize goatPrize = new Goat();
             gameShow.addDoor(new Door(nextDoorID, goatPrize));
-            doorPanel.updateUI();
-            doorPanel.repaint();
         } else if (e.getSource() == saveDoorsButton) {
             simulation.saveGameShow(this.gameShow);
         } else if (e.getSource() == loadDoorsButton) {
             GameShow loadedGameShow = simulation.loadGameShow();
             this.gameShow = loadedGameShow;
-            doorPanel.repaint();
+
         } else if (e.getSource() == runSimulationButton) {
             loProbs = simulation.runTheSimulationLoopReturnProbabilities(gameShow, 1000);
             float switchWinProbability = loProbs.get(0);
             float dontSwitchWinProbability = loProbs.get(1);
             graphPanel.showProbabilityResults(switchWinProbability, dontSwitchWinProbability);
-            doorPanel.repaint();
+
         }
+        doorPanel.repaint();
     }
 
     public void setDoorPanel(DoorPanel dp) {

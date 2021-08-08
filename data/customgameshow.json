@@ -10,33 +10,5 @@
     {
         "doorID": 1,
         "prize": "Car"
-    },
-    {
-        "doorID": 4,
-        "prize": "Car"
-    },
-    {
-        "doorID": 5,
-        "prize": "Car"
-    },
-    {
-        "doorID": 6,
-        "prize": "Goat"
-    },
-    {
-        "doorID": 7,
-        "prize": "Goat"
-    },
-    {
-        "doorID": 8,
-        "prize": "Goat"
-    },
-    {
-        "doorID": 9,
-        "prize": "Goat"
-    },
-    {
-        "doorID": 10,
-        "prize": "Car"
     }
 ]}

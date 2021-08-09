@@ -33,8 +33,7 @@ public class GraphPanel extends JPanel {
 
     private void setupProbabilityLabel() {
         probabilityLabel.setText("Probabilities");
-        probabilityLabel.setFont(new Font("Arial", Font.BOLD, 20));
-        probabilityLabel.setBounds(400, 700, 100, 100);
+        probabilityLabel.setFont(new Font("Arial", Font.BOLD, 40));
 
         this.add(probabilityLabel);
     }
@@ -71,6 +70,21 @@ public class GraphPanel extends JPanel {
         if (ratioOfWinProbabilities != 0) {
             displayRatioComparison(g);
         }
+        drawTitle(g);
+    }
+
+    private void drawTitle(Graphics g) {
+        g.setFont(new Font("Arial", Font.BOLD, 20));
+        g.drawString("Build your own game!",25, 100);
+
+        g.setFont(new Font("Arial", Font.BOLD, 16));
+        g.drawString("When you're done, press 'Run simulation'",25, 140);
+        g.drawString("You may find some surprising results!",25, 165);
+
+        g.drawString("See if you can get a consistently higher",25, 200);
+        g.drawString("win probability by not switching.",25, 225);
+
+        g.drawString("Enjoy!", 25, 260);
     }
 
     private void displayRatioComparison(Graphics g) {
@@ -104,9 +118,10 @@ public class GraphPanel extends JPanel {
         g.drawString(String.valueOf(dontSwitchWinProbability), 232, 480 - heightOfNotSwitchBar - 5);
 //        g.drawRect(106 + 1, 480 - heightOfSwitchBar + 1,50 + 1, heightOfSwitchBar + 1);
 //        g.drawString("Switch win probability = " + switchWinProbability, 200, 300 );;
-
-
+        
     }
+    
+    
 }
 
 

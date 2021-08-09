@@ -1,10 +1,14 @@
-package ui;
+package ui.gui;
 
 import model.GameShow;
 
 import javax.swing.*;
 import java.awt.*;
 import java.math.BigDecimal;
+
+/*
+Graph panel is on the eatside of the JFrame, houses the graph, title, and explanations
+ */
 
 public class GraphPanel extends JPanel {
 
@@ -20,7 +24,7 @@ public class GraphPanel extends JPanel {
     private JLabel probabilityLabel;
 
 
-
+    // Constructor
     public GraphPanel(GameShow gameShow) {
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
         setBackground(Color.white);
@@ -31,6 +35,8 @@ public class GraphPanel extends JPanel {
 
     }
 
+    // MODIFIES: this
+    // EFFECT: sets up the Jlabel used to title the graphpanel
     private void setupProbabilityLabel() {
         probabilityLabel.setText("Probabilities");
         probabilityLabel.setFont(new Font("Arial", Font.BOLD, 40));
@@ -38,10 +44,15 @@ public class GraphPanel extends JPanel {
         this.add(probabilityLabel);
     }
 
+    // MODIFIES: this
+    // EFFECT: sets up the retalionship between the BUttonPanel and this graph panel
     public void setButtonsPanel(ButtonsPanel buttonsPanel) {
         this.buttonsPanel = buttonsPanel;
     }
 
+    // REQUIRES: the two probabilities to be less than 1, or else the bar might get too big
+    // MODIFIES: this
+    // EFFECT: rounds the win probabilities to 3d.p and allows the panel to present it
     public void showProbabilityResults(float switchWinProbability, float dontSwitchWinProbability) {
 
         float resultSwitch = BigDecimal.valueOf(switchWinProbability)
@@ -63,6 +74,8 @@ public class GraphPanel extends JPanel {
 
     }
 
+    // MODIFIES: this
+    // EFFECT: continuously repaints/ draws the elements on the panel
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -73,6 +86,7 @@ public class GraphPanel extends JPanel {
         drawTitle(g);
     }
 
+    // EFFECT: draws the title + subtitles on the top of the panel
     private void drawTitle(Graphics g) {
         g.setFont(new Font("Arial", Font.BOLD, 20));
         g.drawString("Build your own game!",25, 100);
@@ -87,21 +101,20 @@ public class GraphPanel extends JPanel {
         g.drawString("Enjoy!", 25, 260);
     }
 
+    // EFFECT: draws the comment at the bottom about comparing the two choices
     private void displayRatioComparison(Graphics g) {
         g.drawString("You are " + ratioOfWinProbabilities + "x more likely to win if you switch!",
                 25, 600);
     }
 
+    // EFFECT: draws the barchart for the two win probabilities
     private void drawGraph(Graphics g) {
-
-
         int heightOfSwitchBar = (int) (switchWinProbability * 100);
         int heightOfNotSwitchBar = (int) (dontSwitchWinProbability * 100);
 
         g.setColor(new Color(153, 51, 255));
         g.drawRect(106, 480 - heightOfSwitchBar,50, heightOfSwitchBar);
         g.fillRect(106, 480 - heightOfSwitchBar, 50, heightOfSwitchBar);
-
 
         g.setColor(Color.cyan);
         g.drawRect(225, 480 - heightOfNotSwitchBar, 50, heightOfNotSwitchBar);

@@ -6,18 +6,27 @@ The full game panel you'll see here
  */
 
 import model.GameShow;
+import ui.gui.ButtonsPanel;
+import ui.gui.DoorPanel;
+import ui.gui.GraphPanel;
 
 import javax.swing.*;
 import java.awt.*;
 
+/*
+Main GUI running class
+
+centreOnScreen is heavily inspired by SpaceInvadersStarter in CPSC 210
+ */
+
 public class MainGUI extends JFrame {
     private GameShow gameShow;
     private DoorPanel doorPanel;
-    private TextPanel textPanel;
     private ButtonsPanel buttonsPanel;
     private JScrollPane scrollPane;
     private GraphPanel graphPanel;
 
+    // constructor
     public MainGUI() {
         super("Monty Hall Simulation App");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -25,11 +34,7 @@ public class MainGUI extends JFrame {
 
         gameShow = new GameShow();
         gameShow.setupStandardGameShow();
-//        for (int i = 4; i < 15; i++) {
-//            gameShow.addDoor(new Door(i, new Goat()));
-//        }
         doorPanel = new DoorPanel(gameShow);
-        textPanel = new TextPanel();
         buttonsPanel = new ButtonsPanel(gameShow);
         graphPanel = new GraphPanel(gameShow);
 
@@ -50,15 +55,15 @@ public class MainGUI extends JFrame {
         setVisible(true);
     }
 
-    // Centres frame on desktop
-    // modifies: this
-    // effects:  location of frame is set so frame is centred on desktop
+    // MODIFIES: this
+    // EFFECTS:  sets the location of frame so that it is centred on desktop
     private void centreOnScreen() {
         Dimension scrn = Toolkit.getDefaultToolkit().getScreenSize();
         setLocation((scrn.width - getWidth()) / 2, (scrn.height - getHeight()) / 2);
     }
 
 
+    // main function
     public static void main(String[] args) {
         new MainGUI();
     }

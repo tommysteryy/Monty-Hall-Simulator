@@ -1,4 +1,4 @@
-package ui;
+package ui.gui;
 
 import model.Door;
 import model.GameShow;
@@ -24,11 +24,7 @@ public class DoorPanel extends JPanel {
     private GameShow gameshow;
     private ButtonsPanel buttonsPanel;
 
-//    private List<JLabel> doorImages;
-//    private JLabel testDoorImage;
-//    private ImageIcon doorIcon;
-//    private JScrollPane scrollPane;
-
+    // constructor
     public DoorPanel(GameShow gameshow) {
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
         setBackground(Color.gray);
@@ -37,7 +33,8 @@ public class DoorPanel extends JPanel {
 
     }
 
-
+    // MODIFIES: this
+    // EFFECTS: constantly repaints the doors in the gameshow
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -83,6 +80,8 @@ public class DoorPanel extends JPanel {
 //        }
 //    }
 
+    // MODIFIES: THIS
+    // EFFECTS: draws the doors in multiple rows of 4 doors, equally spaced
     public void drawDoors(Graphics g) {
 //        for (Door d: gameshow.getDoors()) {
 //            drawDoor(g, d)
@@ -104,6 +103,9 @@ public class DoorPanel extends JPanel {
 
     }
 
+    // REQUIRES: List<Door> <= 4
+    // MODIFIES: this
+    // EFFECT: draws any given list of doors in a straight row
     private void drawSubListOfDoors(List<Door> doorsToDraw, Graphics g, int ypos) {
         for (int i = 0; i < (doorsToDraw.size()); i++) {
             Door doorToDraw = doorsToDraw.get(i);
@@ -111,6 +113,8 @@ public class DoorPanel extends JPanel {
         }
     }
 
+    // MODIFIES: this
+    // EFFECT: draws a single door at a specific xpos, ypos and sets the colour
     private void drawDoor(Graphics g, Door d, int xpos, int ypos) {
         g.drawRect(xpos, ypos, DOORWIDTH, DOORHEIGHT);
         g.fillRect(xpos, ypos, DOORWIDTH, DOORHEIGHT);
@@ -174,12 +178,10 @@ public class DoorPanel extends JPanel {
 //
 //    }
 
+    // MODIFIES: THIS
+    // EFFECT: sets the buttonpanel - sidepanel relationship
     public void setSidePanel(ButtonsPanel buttonsPanel) {
         this.buttonsPanel = buttonsPanel;
-    }
-
-    public void showProbabilityResults(Float switchWinProbability, Float dontSwitchWinProbability) {
-
     }
 }
 

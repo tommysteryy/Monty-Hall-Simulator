@@ -9,6 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/*
+runs the basic functionality of a gameshow
+ */
+
 public class RunGameShow {
 
     private Scanner input = new Scanner(System.in);
@@ -25,6 +29,8 @@ public class RunGameShow {
     public RunGameShow() {
     }
 
+    // MODIFIES: gameshow
+    // EFFECT: introduces the game and its rules
     public void gameIntro() {
         setupGameShowAndDoors();
         System.out.println("Welcome to the game show! I am Monty Hall, your host for today. \n"
@@ -50,6 +56,8 @@ public class RunGameShow {
         System.out.println("Sweet! Let's go over to the game.");
     }
 
+    // MODIFIES: gameshow
+    // effect: UI interaction for one round of the standard gameshow.
     public void oneRegularGame() {
         setupGameShowAndDoors();
         System.out.println("Here are your three doors: \n");
@@ -75,6 +83,8 @@ public class RunGameShow {
         }
     }
 
+    // MODIFIES: gameshow
+    // EFFECT: sets up a standard gameshow
     public void setupGameShowAndDoors() {
         gameShow.clearDoors();
         gameShow.addDoor(door1C);
@@ -85,6 +95,7 @@ public class RunGameShow {
         gameShow.unselectAllDoors();
     }
 
+    // EFFECT: reveals the prize along with a congratulations line
     public void revealGameShowPrize() {
         System.out.println("And now.. to reveal your prize! \n");
         gameShow.currentSelectedDoor().open();
@@ -97,6 +108,7 @@ public class RunGameShow {
         }
     }
 
+    // EFFECT: returns true if the user wants to play again
     public boolean wantToPlayAgain() {
         System.out.println("Would you like to play again?\n - y (Yes!) \t - n (No, maybe next time)");
         String restartCommand = input.next();
@@ -107,6 +119,8 @@ public class RunGameShow {
         return restartCommand.equals("y");
     }
 
+    // MODIFIES: gameshow
+    // EFFECT: chooses the first door
     public void selectFirstDoor() {
         System.out.println("Which one do you want to select? Choose using the door number. ");
         String doorChoiceInput = input.next();
@@ -118,6 +132,8 @@ public class RunGameShow {
         gameShow.selectDoor(doorChoice);
     }
 
+    // MODIFIES: gameshow
+    // EFFECT: switches the door to the other door that is not the revealed one and not the chosen door
     public void switchDoors(int doorChoice, int doorToReveal) {
 
         System.out.println("Now, this is unprecedented, but I will offer you an exclusive chance to switch your door"

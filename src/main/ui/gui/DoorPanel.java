@@ -116,8 +116,8 @@ public class DoorPanel extends JPanel {
     // MODIFIES: this
     // EFFECT: draws a single door at a specific xpos, ypos and sets the colour
     private void drawDoor(Graphics g, Door d, int xpos, int ypos) {
-        g.drawRect(xpos, ypos, DOORWIDTH, DOORHEIGHT);
-        g.fillRect(xpos, ypos, DOORWIDTH, DOORHEIGHT);
+
+
         if (d.prizeIsGoat()) {
             g.setColor(new Color(176, 129, 89));
 
@@ -127,6 +127,8 @@ public class DoorPanel extends JPanel {
             g.setColor(Color.cyan);
         }
 
+        g.drawRect(xpos, ypos, DOORWIDTH, DOORHEIGHT);
+        g.fillRect(xpos, ypos, DOORWIDTH, DOORHEIGHT);
 
     }
 
@@ -180,7 +182,7 @@ public class DoorPanel extends JPanel {
 
     // MODIFIES: THIS
     // EFFECT: sets the buttonpanel - sidepanel relationship
-    public void setSidePanel(ButtonsPanel buttonsPanel) {
+    public void setButtonsPanel(ButtonsPanel buttonsPanel) {
         this.buttonsPanel = buttonsPanel;
     }
 }

@@ -340,6 +340,7 @@ public class GameShow {
         return jsonObject;
     }
 
+
     // EFFECT:stores each door in a jsonArray
     public JSONArray doorsToJson() {
         JSONArray jsonArray = new JSONArray();
@@ -362,6 +363,7 @@ public class GameShow {
         this.doors = gameShow.getDoors();
     }
 
+    // MODIFIES: customGameShow.json
     // EFFECTS; saves this gameshow into the file.
     public void saveGameShow() {
         try {

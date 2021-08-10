@@ -12,6 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/*
+The class to handle everything related to simulating a specific gameshow
+ */
+
 public class Simulation {
 
     private Scanner input = new Scanner(System.in);
@@ -20,6 +24,7 @@ public class Simulation {
     public static final String fileDestination = "./data/customgameshow.json";
     private GameShow gameShow;
 
+    // constructor
     public Simulation() {
         jsonWriter = new JsonWriter(fileDestination);
         jsonReader = new JsonReader(fileDestination);
@@ -27,6 +32,8 @@ public class Simulation {
         gameShow.setupStandardGameShow();
     }
 
+    // EFFECT: runs one standard gameshow for the UI
+    //         includes some questions, 1 simulation loop, and whether the user wants to see the math
     public void runStandardGameSimulations() {
 
         GameShow sampleGameShow = new GameShow();
@@ -52,10 +59,12 @@ public class Simulation {
         }
     }
 
+    // EFFECT: outputs UI things that relate to showing the math behind the 3-door game
     public void showMathOfGame() {
         // FUNCTION TO SHOW ALL THE MATH BEHIND THE 3-DOOR GAME
     }
 
+    // EFFECT: runs one simulation loop of an arbitrary number of times and calculates win probabilities
     public void runTheSimulationLoop(GameShow gameShow, int numTimesToRunSimulation) {
         System.out.println("Okay, starting now... \n");
         float numWinsSwitch = 0;
@@ -84,6 +93,7 @@ public class Simulation {
         System.out.println("This means you are " + multiplierForSwitching + " more likely to win if you switch!");
     }
 
+    // EFFECT: ui method for building your own game with arbitrary cars and goats
     public void customGameBuilding() {
         GameShow customGameShow = new GameShow();
         System.out.println("Now, you have the chance to build your own Monty Hall game. You can fully explore"
@@ -108,6 +118,7 @@ public class Simulation {
         System.out.println("That's it! Monty Hall out.");
     }
 
+    // EFFECT: asks a simple question if they want to save the gameshow
     private void askIfWantToSaveAndSaving(GameShow customGameShow) {
         System.out.println("Would you like to save your simulation?\n\t-y (Yes!)\t -n (No, it's okay)");
         String saveAnswer = askUserForInputPlusGuards("y", "n");
@@ -116,12 +127,14 @@ public class Simulation {
         }
     }
 
+    // EFFECT: simplified method for printing message before running a simulation
     private void runSimulationsOnNewGameshow(GameShow customGameShow, String s) {
         System.out.println(s);
         Integer numTimesToRunSimulation = askHowManyTimesToRunSimulation();
         runTheSimulationLoop(customGameShow, numTimesToRunSimulation);
     }
 
+    // EFFECT: loop that asks for adding doors to a gameshow until they dont want to anymore.
     public void askAddDoorsWithLoop(GameShow gameShow) {
         System.out.println("Do you want to add a door?\n\t -y (Yes!)\t -n (No, the current game is okay)");
         String answerAdd = input.next();
@@ -146,6 +159,7 @@ public class Simulation {
         System.out.println(gameShow.presentDoors());
     }
 
+    // EFFECT: adding doors to the custom gameshow, depending on the choice of the user
     public GameShow addDoorsToGame(GameShow gameShow) {
         int currentDoorID = gameShow.getLargestDoorID() + 1;
         System.out.println("You are now making Door " + currentDoorID + ". Do you want to have a goat or a "
@@ -167,6 +181,7 @@ public class Simulation {
         return gameShow;
     }
 
+    // EFFECT: simple ui component of asking how many times they want to run a simulation
     public Integer askHowManyTimesToRunSimulation() {
         System.out.println("How many times would you like to run the simulation? Please input a "
                 + "number between 100 and 1000.\n");
@@ -213,6 +228,7 @@ public class Simulation {
         return answerAdd;
     }
 
+    // EFFECTS: runs a simulation with the gameshow numTimesToRunSimulation times, and returns a list of the win probs.
     public List<Float> runTheSimulationLoopReturnProbabilities(GameShow gameShow, int numTimesToRunSimulation) {
 //        System.out.println("Okay, starting now... \n");
         List<Float> listOfProbabilities = new ArrayList<>();

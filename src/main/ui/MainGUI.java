@@ -38,7 +38,7 @@ public class MainGUI extends JFrame {
         buttonsPanel = new ButtonsPanel(gameShow);
         graphPanel = new GraphPanel(gameShow);
 
-        doorPanel.setSidePanel(buttonsPanel);
+        doorPanel.setButtonsPanel(buttonsPanel);
         buttonsPanel.setDoorPanel(doorPanel);
         buttonsPanel.setGraphPanel(graphPanel);
         graphPanel.setButtonsPanel(buttonsPanel);

@@ -40,3 +40,13 @@ this can also be a way for me to practice my upper-year level statistics skills 
 - As a user, I want to see the probability principles that underlie this problem.
 - As a user, I want to be able to save the state of my custom-built game show set up.
 - As a user, I want to be able to load a saved custom-built game show.
+
+## Phase 4: Task 2
+I implemented a bidirectional relationship between ButtonsPanel and DoorPanel as well as between
+ButtonsPanel and GraphPanel. This is mostly because the GraphPanel and DoorPanel listen to the ButtonPanel.
+
+## Phase 4: Task 3
+
+I recognize that this would have been a nice place to implement the Observer
+Pattern, where GraphPanel and DoorPanel observe the ButtonsPanel. However, due to time constraints, I was
+not able to finish this.

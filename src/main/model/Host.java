@@ -1,5 +1,9 @@
 package model;
 
+
+/*
+host class, not very used but wanted to use in GUI
+ */
 public class Host {
 
     private String name;

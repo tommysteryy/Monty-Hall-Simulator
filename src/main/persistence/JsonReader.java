@@ -33,6 +33,7 @@ public class JsonReader {
         return parseGameShow(jsonObject);
     }
 
+    // EFEFCT: reads the gameshow in the jsOnObject
     private GameShow parseGameShow(JSONObject jsonObject) {
         GameShow retrievedGameShow = new GameShow();
         JSONArray doorsArray = jsonObject.getJSONArray("doors");

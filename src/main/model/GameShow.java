@@ -148,6 +148,8 @@ public class GameShow {
         return this.currentSelectedDoor().getPrize() instanceof Car;
     }
 
+    // MODIFIES: THIS
+    // EFFECT: runs a single simulation of this and returns true if they picked the car, false otherwise.
     public boolean runSimulationOnceSwitch() {
         this.unselectAllDoors();
         this.randomizeDoors();
@@ -167,19 +169,6 @@ public class GameShow {
         return this.currentSelectedDoor().getPrize() instanceof Car;
     }
 
-    // REQUIRE: CURRENTLY SELECTED DOOR, ALL CLOSED
-    // MODIFIES: this
-    // EFFECT: reveals a door with the goat behind it that is not currently selected.
-    //         the gameshow after this is called should have:
-    //         original door that was selected, still closed
-    //         a non-selected door, now open, with a goat behind it
-    //         the other door that is not changed in any way.
-//    public void hostRevealOneOtherDoor() {
-//        if (this.allDoorsClosed() && this.atLeastOneSelected()) {
-//            Door doorToOpen = this.nonSelectedGoatDoor();
-//            this.openDoor(doorToOpen.getId());
-//        }
-//    }
 
     // MODIFIES: this
     // EFFECT: sets up a standard gameshow for a normal round of simulations or games
@@ -268,6 +257,7 @@ public class GameShow {
         return result;
     }
 
+    // MODIFIES: this
     // EFFECT: removes all doors from this.doors, good way to reset between methods
     public void clearDoors() {
         List<Door> newDoorList = new ArrayList<>();
@@ -343,13 +333,15 @@ public class GameShow {
         return id;
     }
 
+    // EFFECT: stores the doors of the gameshow as a JsonObject
     public JSONObject toJson() {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("doors", doorsToJson());
         return jsonObject;
     }
 
-    private JSONArray doorsToJson() {
+    // EFFECT:stores each door in a jsonArray
+    public JSONArray doorsToJson() {
         JSONArray jsonArray = new JSONArray();
         for (Door d: doors) {
             jsonArray.put(d.toJson());

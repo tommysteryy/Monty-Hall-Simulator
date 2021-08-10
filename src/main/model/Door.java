@@ -5,6 +5,10 @@ import org.json.JSONObject;
 
 import java.awt.*;
 
+/*
+The door class type used in the simulation gameshows
+ */
+
 public class Door {
 
     private int id; // represents the door number (every door in the game must be unique)
@@ -88,6 +92,7 @@ public class Door {
         return b;
     }
 
+    // EFFECT: saves the current door into a JSONObject
     public JSONObject toJson() {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("doorID", this.id);
@@ -95,12 +100,4 @@ public class Door {
         return jsonObject;
     }
 
-    public void draw(Graphics g) {
-        g.drawRect(xpos, ypos, width, height);
-        g.setColor(Color.green);
-//        if (this.isOpen()) {
-//            // add this.prize() on top
-//        }
-
-    }
 }

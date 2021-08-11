@@ -45,8 +45,27 @@ this can also be a way for me to practice my upper-year level statistics skills 
 I implemented a bidirectional relationship between ButtonsPanel and DoorPanel as well as between
 ButtonsPanel and GraphPanel. This is mostly because the GraphPanel and DoorPanel listen to the ButtonPanel.
 
+I also implemented a type hierachy with the Prizes, where Prize is an abstract class and both Car and Goat
+extend that class and override two of its methods.
+
 ## Phase 4: Task 3
 
-I recognize that this would have been a nice place to implement the Observer
-Pattern, where GraphPanel and DoorPanel observe the ButtonsPanel. However, due to time constraints, I was
-not able to finish this.
+There are three main things I would refactor if I had the time.
+1. I actually stumbled upon this solution half way through Phase 2, but just did not find the time to refactor
+it properly. This problem lies in the relationship between **RunGameShow** and the Goat, Car, and Door classes,
+   *even though* it already contains a GameShow that is associated with those classes. In the UML diagram,
+   this is captured by the protruding lines from the UI section to the model section. I actually solved this problem in 
+   GameShow already with the method setupStandardGameShow(), but I just never removed the associations in 
+   RunGameShow.
+   
+
+2. I recognized during Phase 3 that the GUI classes GraphPanel and DoorPanel are observers of the ButtonPanel class.
+   If I had time, I would have implemented the Observer Pattern on them to reduce some redundancies. GraphPanel and 
+   DoorPanel would implement the Observer interface, the ButtonsPanel would implement the Observable interface. Then,
+   notifyObservers() would be called in the actionPerformed() method in ButtonsPanel and update would be specific for 
+   GraphPanel and DoorPanel.
+   
+
+3. Lastly, I would want to eliminate the need for a JsonReader & JsonWriter in the Simulations class. Once again, there
+seems to be unnecessary coupling as GameShow already contains both of those classes, and it forms a triangle between 
+   GameShow, Simulation, and the data persistence classes.

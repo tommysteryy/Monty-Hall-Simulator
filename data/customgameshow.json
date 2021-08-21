@@ -1,14 +1,14 @@
 {"doors": [
     {
+        "doorID": 1,
+        "prize": "Car"
+    },
+    {
         "doorID": 3,
         "prize": "Goat"
     },
     {
         "doorID": 2,
         "prize": "Goat"
-    },
-    {
-        "doorID": 1,
-        "prize": "Car"
     }
 ]}

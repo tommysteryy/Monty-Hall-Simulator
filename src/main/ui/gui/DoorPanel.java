@@ -27,7 +27,7 @@ public class DoorPanel extends JPanel {
     // constructor
     public DoorPanel(GameShow gameshow) {
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
-        setBackground(Color.gray);
+        setBackground(Color.lightGray);
         setLayout(null);
         this.gameshow = gameshow;
 
@@ -46,9 +46,26 @@ public class DoorPanel extends JPanel {
 //        placeAllDoors();
 
         drawDoors(g);
+        drawLegend(g);
+
 
 //        drawRectangles(g);
 //        drawGraph(g, new Float(0.5), new Float(0.9));
+    }
+
+    private void drawLegend(Graphics g) {
+        g.setColor(Color.BLACK);
+        g.setFont(new Font("Arial", Font.BOLD, 20));
+        g.drawString("Legend:", 300, 50);
+        g.setFont(new Font("Arial", Font.BOLD, 16));
+        g.drawString("Car -", 395, 35);
+        g.drawString("Goat -", 395, 65);
+        g.setColor(Color.cyan);
+        g.drawString("Cyan", 440, 35);
+        g.setColor(new Color(176, 129, 89));
+        g.drawString("Brown", 450, 65);
+
+
     }
 
 //    private void drawGraph(Graphics g, Float switchWinProbability, Float dontSwitchWinProbability) {

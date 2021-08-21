@@ -1,4 +1,4 @@
-package ui;
+package ui.gui;
 
 
 /*
@@ -6,9 +6,6 @@ The full game panel you'll see here
  */
 
 import model.GameShow;
-import ui.gui.ButtonsPanel;
-import ui.gui.DoorPanel;
-import ui.gui.GraphPanel;
 
 import javax.swing.*;
 import java.awt.*;

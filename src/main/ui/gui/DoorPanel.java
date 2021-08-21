@@ -47,7 +47,7 @@ public class DoorPanel extends JPanel {
 
         drawDoors(g);
         drawLegend(g);
-
+        repaint();
 
 //        drawRectangles(g);
 //        drawGraph(g, new Float(0.5), new Float(0.9));
@@ -201,6 +201,10 @@ public class DoorPanel extends JPanel {
     // EFFECT: sets the buttonpanel - sidepanel relationship
     public void setButtonsPanel(ButtonsPanel buttonsPanel) {
         this.buttonsPanel = buttonsPanel;
+    }
+
+    public void setGameShow(GameShow gameShow) {
+        this.gameshow = gameShow;
     }
 }
 

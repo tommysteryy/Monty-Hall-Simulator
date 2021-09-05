@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
 import java.util.List;
 
 /*
@@ -59,6 +60,7 @@ public class DoorPanel extends JComponent implements MouseListener {
         setLayout(null);
         this.gameshow = gameshow;
         addMouseListener(this);
+        listOfGraphicDoors = new ArrayList<>();
     }
 
     // MODIFIES: this
@@ -155,8 +157,10 @@ public class DoorPanel extends JComponent implements MouseListener {
     private void drawSubListOfDoors(List<Door> doorsToDraw, Graphics g, int ypos) {
         for (int i = 0; i < (doorsToDraw.size()); i++) {
             Door doorToDraw = doorsToDraw.get(i);
-            drawAppearanceDoor(g, doorToDraw, 90 + i * 180, ypos);
             drawGraphicDoor(g, doorToDraw, 90 + i * 180, ypos);
+            drawAppearanceDoor(g, doorToDraw, 90 + i * 180, ypos);
+
+
         }
     }
 
@@ -200,6 +204,7 @@ public class DoorPanel extends JComponent implements MouseListener {
 
     // EFFECT: draws the Rectangle2D version of the doors, interactable with MouseEvent
     private void drawGraphicDoor(Graphics g, Door d, int xpos, int ypos) {
+
         Rectangle2D rectangle2D = new Rectangle2D.Double(xpos, ypos, DOORWIDTH, DOORHEIGHT);
         Graphics2D g2d = (Graphics2D) g;
         if (d.prizeIsGoat()) {
@@ -208,6 +213,10 @@ public class DoorPanel extends JComponent implements MouseListener {
             g2d.setColor(Color.magenta);
         }
         g2d.fill(rectangle2D);
+        if (!listOfGraphicDoors.contains(rectangle2D)) {
+            listOfGraphicDoors.add(rectangle2D);
+        }
+
     }
 
 //    public void placeAllDoors() {
@@ -262,9 +271,15 @@ public class DoorPanel extends JComponent implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
 
-//        if ((e.getButton() == 1) && rectangle2D.contains(e.getX(), e.getY())) {
-//            System.out.println("SOMETHING IS HAPPENING");
-//        }
+        for (Rectangle2D rectangle : listOfGraphicDoors) {
+            if ((e.getButton() == 1) && rectangle.contains(e.getX(), e.getY())) {
+                int doorNum = listOfGraphicDoors.indexOf(rectangle) + 1;
+                System.out.println("This is Door " + doorNum);
+                System.out.println("Behind this door is " + gameshow.getDoors().get(doorNum - 1).getPrize().reveal());
+                break;
+            }
+        }
+//
     }
 
     @Override

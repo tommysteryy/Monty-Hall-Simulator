@@ -37,6 +37,10 @@ for door in door gameshow:
 
 - the styling
 
+Goat picture: https://www.cleanpng.com/png-goat-cartoon-animal-grey-goat-head-pull-material-f-188538/download-png.html
+Car picture:
+
+NEED A LIST OF LABELS AGAIN
  */
 
 public class DoorPanel extends JComponent implements MouseListener {
@@ -50,6 +54,9 @@ public class DoorPanel extends JComponent implements MouseListener {
     private GameShow gameshow;
     private ButtonsPanel buttonsPanel;
     private List<Rectangle2D> listOfGraphicDoors;
+    private List<JLabel> listOfLabelDoors;
+    private ImageIcon goatIcon;
+    private ImageIcon carIcon;
 
 //    Rectangle2D rectangle2D = new Rectangle2D.Double(70, 400, 100, 100);
 
@@ -61,6 +68,10 @@ public class DoorPanel extends JComponent implements MouseListener {
         this.gameshow = gameshow;
         addMouseListener(this);
         listOfGraphicDoors = new ArrayList<>();
+        listOfLabelDoors = new ArrayList<>();
+        goatIcon = new ImageIcon("src/main/Images/goat_resized.png");
+        carIcon = new ImageIcon("src/main/Images/car.png");
+
     }
 
     // MODIFIES: this
@@ -72,7 +83,9 @@ public class DoorPanel extends JComponent implements MouseListener {
         drawDoors(g);
         drawGraphicDoors(g);
         drawLegend(g);
-        repaint();
+        for (JLabel label: listOfLabelDoors) {
+            this.add(label);
+        }
     }
 
     private void drawGraphicDoors(Graphics g) {
@@ -158,9 +171,8 @@ public class DoorPanel extends JComponent implements MouseListener {
         for (int i = 0; i < (doorsToDraw.size()); i++) {
             Door doorToDraw = doorsToDraw.get(i);
             drawGraphicDoor(g, doorToDraw, 90 + i * 180, ypos);
+            drawIconDoor(g, doorToDraw, 90 + i * 180, ypos);
             drawAppearanceDoor(g, doorToDraw, 90 + i * 180, ypos);
-
-
         }
     }
 
@@ -168,37 +180,40 @@ public class DoorPanel extends JComponent implements MouseListener {
     // EFFECT: draws a single door at a specific xpos, ypos and sets the colour
     private void drawAppearanceDoor(Graphics g, Door d, int xpos, int ypos) {
 
+        int doorIndex = gameshow.getDoors().indexOf(d);
+        JLabel doorIconClicked = listOfLabelDoors.get(doorIndex);
 
-//        if (d.prizeIsGoat()) {
-//
-//
-////            g.setFont(new Font("TimesRoman", Font.PLAIN, 80));
-////            g.drawString("Goat",(topLeftCoordinate + DOORWIDTH) / 2, (90 + DOORHEIGHT) / 2);
-//        } else {
-//            g.setColor(Color.cyan);
-//        }
-        Color doorBaseColour = new Color(127, 81, 51);
-        Color doorWindowColour = new Color(213, 176, 143);
-        g.setColor(doorBaseColour);
-        g.drawRect(xpos, ypos, DOORWIDTH, DOORHEIGHT);
-        g.fillRect(xpos, ypos, DOORWIDTH, DOORHEIGHT);
+        if (!(d.isOpen())) {
+            Color doorBaseColour = new Color(127, 81, 51);
+            Color doorWindowColour = new Color(213, 176, 143);
+            g.setColor(doorBaseColour);
+            g.drawRect(xpos, ypos, DOORWIDTH, DOORHEIGHT);
+            g.fillRect(xpos, ypos, DOORWIDTH, DOORHEIGHT);
 
-        g.setColor(doorWindowColour);
-        g.drawRect(xpos + 15, ypos + 15,25, 60);
-        g.fillRect(xpos + 15, ypos + 15,25, 60);
+            g.setColor(doorWindowColour);
+            g.drawRect(xpos + 15, ypos + 15,25, 60);
+            g.fillRect(xpos + 15, ypos + 15,25, 60);
 
-        g.drawRect(xpos + 60, ypos + 15,25, 60);
-        g.fillRect(xpos + 60, ypos + 15,25, 60);
+            g.drawRect(xpos + 60, ypos + 15,25, 60);
+            g.fillRect(xpos + 60, ypos + 15,25, 60);
 
-        g.drawRect(xpos + 15, ypos + 100,25, 60);
-        g.fillRect(xpos + 15, ypos + 100,25, 60);
+            g.drawRect(xpos + 15, ypos + 100,25, 60);
+            g.fillRect(xpos + 15, ypos + 100,25, 60);
 
-        g.drawRect(xpos + 60, ypos + 100,25, 60);
-        g.fillRect(xpos + 60, ypos + 100,25, 60);
+            g.drawRect(xpos + 60, ypos + 100,25, 60);
+            g.fillRect(xpos + 60, ypos + 100,25, 60);
 
-        g.setColor(new Color(232, 229, 229));
-        g.drawOval(xpos + 85, ypos + 83, 10, 10);
-        g.fillOval(xpos + 85, ypos + 83, 10, 10);
+            g.setColor(new Color(232, 229, 229));
+            g.drawOval(xpos + 85, ypos + 83, 10, 10);
+            g.fillOval(xpos + 85, ypos + 83, 10, 10);
+
+            doorIconClicked.setVisible(false);
+
+        } else if (d.isOpen()) {
+            this.add(doorIconClicked);
+            doorIconClicked.setVisible(true);
+        }
+
 
     }
 
@@ -207,16 +222,34 @@ public class DoorPanel extends JComponent implements MouseListener {
 
         Rectangle2D rectangle2D = new Rectangle2D.Double(xpos, ypos, DOORWIDTH, DOORHEIGHT);
         Graphics2D g2d = (Graphics2D) g;
-        if (d.prizeIsGoat()) {
-            g2d.setColor(Color.cyan);
-        } else if (d.prizeIsCar()) {
-            g2d.setColor(Color.magenta);
-        }
+//        if (d.prizeIsGoat()) {
+//            g2d.setColor(Color.cyan);
+//        } else if (d.prizeIsCar()) {
+//            g2d.setColor(Color.magenta);
+//        }
+        g2d.setColor(new Color(127, 81, 51));
         g2d.fill(rectangle2D);
+
+        g2d.setColor(new Color(211,211,211));
+        g2d.fill(new Rectangle2D.Double(xpos + 3, ypos + 3, DOORWIDTH - 6, DOORHEIGHT - 6));
         if (!listOfGraphicDoors.contains(rectangle2D)) {
             listOfGraphicDoors.add(rectangle2D);
         }
 
+    }
+
+    private void drawIconDoor(Graphics g, Door d, int xpos, int ypos) {
+        JLabel doorLabel = new JLabel();
+        doorLabel.setBounds(xpos, ypos, DOORWIDTH, DOORHEIGHT);
+        doorLabel.setVisible(false);
+        if (d.prizeIsCar()) {
+            doorLabel.setIcon(carIcon);
+        } else if (d.prizeIsGoat()) {
+            doorLabel.setIcon(goatIcon);
+        }
+        if (!(listOfLabelDoors.contains(doorLabel))) {
+            listOfLabelDoors.add(doorLabel);
+        }
     }
 
 //    public void placeAllDoors() {
@@ -274,12 +307,18 @@ public class DoorPanel extends JComponent implements MouseListener {
         for (Rectangle2D rectangle : listOfGraphicDoors) {
             if ((e.getButton() == 1) && rectangle.contains(e.getX(), e.getY())) {
                 int doorNum = listOfGraphicDoors.indexOf(rectangle) + 1;
-                System.out.println("This is Door " + doorNum);
-                System.out.println("Behind this door is " + gameshow.getDoors().get(doorNum - 1).getPrize().reveal());
+                Door doorClicked = gameshow.getDoors().get(doorNum - 1);
+                if (doorClicked.isOpen()) {
+                    doorClicked.close();
+                } else if (!(doorClicked.isOpen())) {
+                    doorClicked.open();
+                }
+//                System.out.println("Behind this door is " + gameshow.getDoors().get(doorNum - 1).getPrize().reveal());
+                repaint();
                 break;
             }
         }
-//
+
     }
 
     @Override
@@ -289,14 +328,11 @@ public class DoorPanel extends JComponent implements MouseListener {
 
     @Override
     public void mouseReleased(MouseEvent e) {
-
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
-//        if (rectangle2D.contains(e.getX(), e.getY())) {
-//            System.out.println("You have entered the oval");
-//        }
+
     }
 
     @Override

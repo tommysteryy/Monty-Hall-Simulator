@@ -30,22 +30,26 @@ public class GraphPanel extends JPanel {
         setBackground(Color.white);
 //        setVisible(false);
         this.gameShow = gameShow;
-        probabilityLabel = new JLabel();
-        setupProbabilityLabel();
+//        probabilityLabel = new JLabel();
+//        setupProbabilityLabel();
 
     }
 
     // MODIFIES: this
     // EFFECT: sets up the Jlabel used to title the graphpanel
     private void setupProbabilityLabel() {
+
+
         probabilityLabel.setText("Probabilities");
         probabilityLabel.setFont(new Font("Arial", Font.BOLD, 40));
 
         this.add(probabilityLabel);
     }
 
+
+
     // MODIFIES: this
-    // EFFECT: sets up the retalionship between the BUttonPanel and this graph panel
+    // EFFECT: sets up the relationship between the ButtonPanel and this graph panel
     public void setButtonsPanel(ButtonsPanel buttonsPanel) {
         this.buttonsPanel = buttonsPanel;
     }
@@ -88,47 +92,54 @@ public class GraphPanel extends JPanel {
 
     // EFFECT: draws the title + subtitles on the top of the panel
     private void drawTitle(Graphics g) {
+
+        g.setFont(new Font("Arial", Font.BOLD, 35));
+        g.drawString("Welcome!", 120, 50);
+
         g.setFont(new Font("Arial", Font.BOLD, 20));
         g.drawString("Build your own game!",25, 100);
 
         g.setFont(new Font("Arial", Font.BOLD, 16));
-        g.drawString("When you're done, press 'Run simulation'",25, 140);
-        g.drawString("You may find some surprising results!",25, 165);
+        g.drawString("If you start to forget, click the door to show",25, 140);
+        g.drawString("what is behind them.",25, 165);
 
-        g.drawString("See if you can get a consistently higher",25, 200);
-        g.drawString("win probability by not switching.",25, 225);
+        g.drawString("When you're done, press 'Run simulation'",25, 200);
+        g.drawString("You may find some surprising results!",25, 225);
 
-        g.drawString("Enjoy!", 25, 260);
+        g.drawString("See if you can get a consistently higher", 25, 260);
+        g.drawString("win probability by not switching.", 25, 285);
+
+        g.drawString("Enjoy!", 25, 320);
     }
 
     // EFFECT: draws the comment at the bottom about comparing the two choices
     private void displayRatioComparison(Graphics g) {
         g.drawString("You are " + ratioOfWinProbabilities + "x more likely to win if you switch!",
-                25, 600);
+                35, 600);
     }
 
     // EFFECT: draws the barchart for the two win probabilities
     private void drawGraph(Graphics g) {
-        int heightOfSwitchBar = (int) (switchWinProbability * 100);
-        int heightOfNotSwitchBar = (int) (dontSwitchWinProbability * 100);
+        int heightOfSwitchBar = (int) (switchWinProbability * 130);
+        int heightOfNotSwitchBar = (int) (dontSwitchWinProbability * 130);
 
         g.setColor(new Color(153, 51, 255));
-        g.drawRect(106, 480 - heightOfSwitchBar,50, heightOfSwitchBar);
-        g.fillRect(106, 480 - heightOfSwitchBar, 50, heightOfSwitchBar);
+        g.drawRect(106, 530 - heightOfSwitchBar,50, heightOfSwitchBar);
+        g.fillRect(106, 530 - heightOfSwitchBar, 50, heightOfSwitchBar);
 
         g.setColor(Color.cyan);
-        g.drawRect(225, 480 - heightOfNotSwitchBar, 50, heightOfNotSwitchBar);
-        g.fillRect(225, 480 - heightOfNotSwitchBar, 50, heightOfNotSwitchBar);
+        g.drawRect(225, 530 - heightOfNotSwitchBar, 50, heightOfNotSwitchBar);
+        g.fillRect(225, 530 - heightOfNotSwitchBar, 50, heightOfNotSwitchBar);
 
         g.setColor(Color.black);
-        g.setFont(new Font("Arial", Font.BOLD, 18));;
-        g.drawString("Switch", 100, 500);
-        g.drawString("Don't Switch", 200, 500);
-        g.drawLine(75, 480, 325, 480);
+        g.setFont(new Font("Arial", Font.BOLD, 18));
+        g.drawString("Switch", 100, 550);
+        g.drawString("Don't Switch", 200, 550);
+        g.drawLine(75, 530, 325, 530);
 
-        g.setFont(new Font("Arial", Font.BOLD, 14));;
-        g.drawString(String.valueOf(switchWinProbability), 113, 480 - heightOfSwitchBar - 5);
-        g.drawString(String.valueOf(dontSwitchWinProbability), 232, 480 - heightOfNotSwitchBar - 5);
+        g.setFont(new Font("Arial", Font.BOLD, 14));
+        g.drawString(String.valueOf(switchWinProbability), 113, 530 - heightOfSwitchBar - 5);
+        g.drawString(String.valueOf(dontSwitchWinProbability), 232, 530 - heightOfNotSwitchBar - 5);
 //        g.drawRect(106 + 1, 480 - heightOfSwitchBar + 1,50 + 1, heightOfSwitchBar + 1);
 //        g.drawString("Switch win probability = " + switchWinProbability, 200, 300 );;
         

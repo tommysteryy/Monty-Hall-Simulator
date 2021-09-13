@@ -94,15 +94,8 @@ public class DoorPanel extends JComponent implements MouseListener {
 
     private void drawLegend(Graphics g) {
         g.setColor(Color.BLACK);
-        g.setFont(new Font("Arial", Font.BOLD, 20));
-        g.drawString("Legend:", 300, 50);
-        g.setFont(new Font("Arial", Font.BOLD, 16));
-        g.drawString("Car -", 395, 35);
-        g.drawString("Goat -", 395, 65);
-        g.setColor(Color.cyan);
-        g.drawString("Cyan", 440, 35);
-        g.setColor(new Color(176, 129, 89));
-        g.drawString("Brown", 450, 65);
+        g.setFont(new Font("Arial", Font.BOLD, 35));
+        g.drawString("Gameshow Panel", 265, 50);
 
 
     }

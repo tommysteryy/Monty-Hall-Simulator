@@ -81,15 +81,10 @@ public class DoorPanel extends JComponent implements MouseListener {
         super.paintComponent(g);
 //        drawSingleEllipse(g);
         drawDoors(g);
-        drawGraphicDoors(g);
         drawLegend(g);
         for (JLabel label: listOfLabelDoors) {
             this.add(label);
         }
-    }
-
-    private void drawGraphicDoors(Graphics g) {
-
     }
 
 //    private void drawSingleEllipse(Graphics g) {
@@ -231,12 +226,14 @@ public class DoorPanel extends JComponent implements MouseListener {
         g2d.fill(rectangle2D);
 
         g2d.setColor(new Color(211,211,211));
-        g2d.fill(new Rectangle2D.Double(xpos + 3, ypos + 3, DOORWIDTH - 6, DOORHEIGHT - 6));
+        g2d.fill(new Rectangle2D.Double(xpos + 6, ypos + 6, DOORWIDTH - 12, DOORHEIGHT - 12));
         if (!listOfGraphicDoors.contains(rectangle2D)) {
             listOfGraphicDoors.add(rectangle2D);
         }
 
     }
+
+
 
     private void drawIconDoor(Graphics g, Door d, int xpos, int ypos) {
         JLabel doorLabel = new JLabel();
@@ -247,9 +244,30 @@ public class DoorPanel extends JComponent implements MouseListener {
         } else if (d.prizeIsGoat()) {
             doorLabel.setIcon(goatIcon);
         }
-        if (!(listOfLabelDoors.contains(doorLabel))) {
+        if (!(containsDoorLabel(doorLabel, xpos, ypos))) {
             listOfLabelDoors.add(doorLabel);
         }
+    }
+
+    private boolean containsDoorLabel(JLabel doorLabel, int xpos, int ypos) {
+        if (listOfLabelDoors.size() != 0) {
+            for (int i = 0; i < listOfLabelDoors.size(); i++) {
+                Rectangle labelBounds = doorLabel.getBounds();
+                Rectangle currentLabelBounds = listOfLabelDoors.get(i).getBounds();
+                if (labelBounds.x == currentLabelBounds.x && labelBounds.y == currentLabelBounds.y) {
+                    return true;
+                }
+            }
+        }
+        return false;
+
+
+    }
+
+    protected void clearIconAndGraphicDoors() {
+        listOfGraphicDoors.clear();
+        listOfLabelDoors.clear();
+        this.removeAll();
     }
 
 //    public void placeAllDoors() {

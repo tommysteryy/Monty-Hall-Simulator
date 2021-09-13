@@ -103,6 +103,7 @@ public class ButtonsPanel extends JPanel implements ActionListener {
         } else if (e.getSource() == loadDoorsButton) {
             gameShow = simulation.loadGameShow();
             doorPanel.setGameShow(gameShow);
+            doorPanel.clearIconAndGraphicDoors();
         } else if (e.getSource() == runSimulationButton) {
             loProbs = simulation.runTheSimulationLoopReturnProbabilities(gameShow, 1000);
             float switchWinProbability = loProbs.get(0);

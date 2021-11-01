@@ -118,7 +118,7 @@ public class GraphPanel extends JPanel {
                 35, 600);
     }
 
-    // EFFECT: draws the barchart for the two win probabilities
+    // EFFECT: draws the barchart for the two win probabilities 
     private void drawGraph(Graphics g) {
         int heightOfSwitchBar = (int) (switchWinProbability * 130);
         int heightOfNotSwitchBar = (int) (dontSwitchWinProbability * 130);

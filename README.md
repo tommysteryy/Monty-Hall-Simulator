@@ -9,7 +9,7 @@
 ### Custom Game & Saving:
 ![Custom Monty Hall Game Demo](data/images/demo2-small.gif "Custom Monty Hall Game Demo")
 
-
+## Inspiration
 
 In my STAT 302: Introduction to Probability course, we talked about the Monty Hall game show
 situation. To read more about the setup of the game, you can visit:
@@ -32,6 +32,8 @@ reveals that there is a goat behind that door.
 Now, he asks "would you like to switch to door 3? Or 
 would you like to stick with door 1?" This is where the contestants make their final decision.
 
+
+## Goal
 During my STAT 302 class, we analyzed the mathematics behind this game, showing the counterintuitive result 
 that **switching doors actually leads to a doubled chance of winning the car compared to not 
 switching**. I thought that it would be helpful to build a simulation to compare the options 
@@ -46,7 +48,7 @@ problem interactively. It will include:
 - Functionality to run a simulation of your custom-built game scenario 1000 times and comparing the performance of "switching" 
   vs "not switching".
   
-This project was inspired by the avid mathematics tutor/teacher in me. Through this appication, I want 
+This project was inspired by the avid mathematics tutor/teacher in me. Through this application, I want 
 to extend my help to students who may struggle with math in one way or another with this concept.
 
 

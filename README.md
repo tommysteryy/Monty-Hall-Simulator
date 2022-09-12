@@ -9,7 +9,7 @@
 ### Custom Game & Saving:
 ![Custom Monty Hall Game Demo](data/images/demo2-small.gif "Custom Monty Hall Game Demo")
 
-## Inspiration 
+## Inspiration
 
 In my STAT 302: Introduction to Probability course, we talked about the Monty Hall game show
 situation. To read more about the setup of the game, you can visit:
